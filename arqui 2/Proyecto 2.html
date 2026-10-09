@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma Interactiva - Arquitectura y Organización de Computadoras</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                            dark: '#0b0f19',
+                            card: '#111827',
+                            border: '#1f2937'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #080c14;
+            color: #f3f4f6;
+        }
+        code, .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.25);
+        }
+        .glow-active {
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#080c14] text-slate-100 antialiased selection:bg-sky-500 selection:text-white">
+
+    <!-- Header principal -->
+    <header class="sticky top-0 z-50 border-b border-slate-800 bg-[#080c14]/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-gradient-to-tr from-sky-600 to-cyan-400 rounded-xl shadow-lg shadow-sky-500/20">
+                        <i class="fa-solid font-bold fa-microchip text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold bg-gradient-to-r from-white via-slate-200 to-sky-400 bg-clip-text text-transparent">
+                            ArqComputer <span class="text-xs px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">Aprende Interactivo</span>
+                        </h1>
+                        <p class="text-xs text-slate-400 hidden sm:block">Plataforma Educativa de Arquitectura y Organización de CPU</p>
+                    </div>
+                </div>
+
+                <!-- Theme indicator badge -->
+                <div class="flex items-center space-x-2 text-xs text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="font-medium text-slate-300">UNI - Arquitectura II</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs Bar -->
+        <nav class="border-t border-slate-800/80 bg-slate-950/50">
+            <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+                <div class="flex space-x-1 sm:space-x-2 overflow-x-auto py-2 no-scrollbar">
+                    <button onclick="switchTab('tema1')" id="tab-btn-tema1" class="nav-tab flex items-center space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap bg-sky-600/20 text-sky-400 border border-sky-500/30">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>Tema 1: Arq vs. Org</span>
+                    </button>
+                    <button onclick="switchTab('tema2')" id="tab-btn-tema2" class="nav-tab flex items-center space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent">
+                        <i class="fa-solid fa-server"></i>
+                        <span>Tema 2: Von Neumann & Programa Almacenado</span>
+                    </button>
+                    <button onclick="switchTab('tema3')" id="tab-btn-tema3" class="nav-tab flex items-center space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent">
+                        <i class="fa-solid fa-rotate text-sky-400"></i>
+                        <span>Tema 3: CPU & Ciclo de Instrucción</span>
+                    </button>
+                    <button onclick="switchTab('tema4')" id="tab-btn-tema4" class="nav-tab flex items-center space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent">
+                        <i class="fa-solid fa-code"></i>
+                        <span>Tema 4: ISA & Direccionamiento</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ========================================== -->
+        <!-- TEMA 1: ARQUITECTURA VS ORGANIZACIÓN -->
+        <!-- ========================================== -->
+        <section id="tema1" class="tab-content space-y-8 block">
+            <!-- Hero Header -->
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-sky-950 p-6 sm:p-8 border border-slate-800">
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-sky-400">Unidad I</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Arquitectura vs. Organización de Computadoras</h2>
+                    <p class="text-slate-300 mt-2 text-sm sm:text-base leading-relaxed">
+                        Aunque a menudo se usan como sinónimos, representan niveles distintos de diseño y abstracción en la ingeniería informática. La arquitectura define <em>qué hace</em> la máquina (perspectiva del programador), mientras que la organización determina <em>cómo lo hace</em> (implementación física de hardware).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Concept Cards grid -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Arquitectura Card -->
+                <div class="bg-slate-900/80 rounded-xl p-6 border border-slate-800 hover:border-sky-500/40 transition-all">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="p-3 bg-sky-500/10 text-sky-400 rounded-lg">
+                            <i class="fa-solid fa-eye text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Arquitectura de Computadoras</h3>
+                            <p class="text-xs text-sky-400 font-medium">Especificación Conceptual (Visión Programador)</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-300 mb-4 leading-relaxed">
+                        Atributos de un sistema que son directamente visibles para un programador o que tienen un impacto lógico directo en la ejecución de un programa.
+                    </p>
+                    <div class="space-y-2 text-xs">
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 text-slate-300 flex items-center space-x-2">
+                            <i class="fa-solid fa-check text-sky-400"></i>
+                            <span><strong>Conjunto de Instrucciones (ISA):</strong> Comandos nativos.</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 text-slate-300 flex items-center space-x-2">
+                            <i class="fa-solid fa-check text-sky-400"></i>
+                            <span><strong>Representación de Datos:</strong> Bits para enteros o flotantes.</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 text-slate-300 flex items-center space-x-2">
+                            <i class="fa-solid fa-check text-sky-400"></i>
+                            <span><strong>Mecanismos de E/S & Direccionamiento:</strong> Formas de acceder a memoria.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Organización Card -->
+                <div class="bg-slate-900/80 rounded-xl p-6 border border-slate-800 hover:border-cyan-500/40 transition-all">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="p-3 bg-cyan-500/10 text-cyan-400 rounded-lg">
+                            <i class="fa-solid fa-microchip text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Organización de Computadoras</h3>
+                            <p class="text-xs text-cyan-400 font-medium">Implementación Física (Hardware y Conexiones)</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-300 mb-4 leading-relaxed">
+                        Unidades operativas físicamente interconectadas para hacer realidad la especificación arquitectónica. Cambia constantemente con la tecnología.
+                    </p>
+                    <div class="space-y-2 text-xs">
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 text-slate-300 flex items-center space-x-2">
+                            <i class="fa-solid fa-bolt text-cyan-400"></i>
+                            <span><strong>Señales de Control y Frecuencia:</strong> Relojes del procesador.</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 text-slate-300 flex items-center space-x-2">
+                            <i class="fa-solid fa-bolt text-cyan-400"></i>
+                            <span><strong>Tecnología de Memoria y Caché:</strong> L1, L2, L3, SRAM/DRAM.</span>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 text-slate-300 flex items-center space-x-2">
+                            <i class="fa-solid fa-bolt text-cyan-400"></i>
+                            <span><strong>Diseño de Circuitos:</strong> Sumadores iterativos vs multiplicadores dedicados.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cuadro Comparativo Dinámico -->
+            <div class="bg-slate-900 rounded-xl border border-slate-800 p-6 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+                            <i class="fa-solid fa-table-columns text-sky-400"></i>
+                            <span>Cuadro Comparativo Dinámico</span>
+                        </h3>
+                        <p class="text-xs text-slate-400">Filtra por atributos para analizar la diferencia de conceptos</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="filterTable('all')" id="btn-filter-all" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-sky-600 text-white transition-all">Todos</button>
+                        <button onclick="filterTable('arq')" id="btn-filter-arq" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">Solo Arquitectura</button>
+                        <button onclick="filterTable('org')" id="btn-filter-org" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">Solo Organización</button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm">
+                        <thead class="bg-slate-950 text-slate-400 uppercase text-[11px] tracking-wider">
+                            <tr>
+                                <th class="p-3 rounded-l-lg">Criterio</th>
+                                <th class="p-3">Arquitectura (Lo que hace)</th>
+                                <th class="p-3 rounded-r-lg">Organización (Cómo lo hace)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                            <tr class="table-row-item arq-row org-row">
+                                <td class="p-3 font-semibold text-sky-400">Definición</td>
+                                <td class="p-3">Diseño lógico y abstracto visible al programador.</td>
+                                <td class="p-3">Hardware físico, circuitos e interconexiones concretas.</td>
+                            </tr>
+                            <tr class="table-row-item arq-row">
+                                <td class="p-3 font-semibold text-sky-400">Estabilidad en el tiempo</td>
+                                <td class="p-3">Muy estable. Se mantiene durante décadas (ej: x86-64).</td>
+                                <td class="p-3">Evoluciona rápidamente con avances en nanómetros y transistores.</td>
+                            </tr>
+                            <tr class="table-row-item arq-row org-row">
+                                <td class="p-3 font-semibold text-sky-400">Ejemplo de Multiplicación</td>
+                                <td class="p-3">Disponibilidad de la instrucción `MUL` para el compilador.</td>
+                                <td class="p-3">Uso de un circuito multiplicador en hardware vs. sumas sucesivas.</td>
+                            </tr>
+                            <tr class="table-row-item org-row">
+                                <td class="p-3 font-semibold text-sky-400">Componentes Clave</td>
+                                <td class="p-3">ISA, Registros visibles, Modos de Direccionamiento.</td>
+                                <td class="p-3">Buses, Reloj, Niveles de Caché L1/L2/L3, Chiplets.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Explicación clave sobre cambio de organización sin cambiar arquitectura -->
+                <div class="bg-slate-950/70 p-4 rounded-xl border border-sky-500/20 text-xs sm:text-sm space-y-2">
+                    <h4 class="font-bold text-sky-400 flex items-center space-x-2">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span>¿Puede cambiar la Organización sin cambiar la Arquitectura?</span>
+                    </h4>
+                    <p class="text-slate-300 leading-relaxed">
+                        <strong>¡SÍ!</strong> Por ejemplo, un procesador Intel Core de hace 10 años y un procesador AMD Ryzen actual comparten la misma arquitectura base (<strong>x86-64</strong>), ejecutando exactamente el mismo programa compilado. Sin embargo, su organización interna es radicalmente distinta: más núcleos, memorias caché L3 masivas en 3D, microarquitecturas de 5nm y buses de interconexión ultra rápidos.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Caso Práctico: AMD Ryzen 7 7800X3D -->
+            <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/50 rounded-xl border border-slate-800 p-6 space-y-4">
+                <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+                    <div class="p-2.5 bg-red-500/10 text-red-400 rounded-lg">
+                        <i class="fa-solid fa-microchip text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Caso Práctico: Procesador AMD Ryzen 7 7800X3D</h3>
+                        <p class="text-xs text-slate-400">Análisis real de Arquitectura vs. Organización en hardware moderno</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <h4 class="font-bold text-sky-400 border-b border-slate-800 pb-1">Aspectos de Arquitectura (ISA x86-64)</h4>
+                        <ul class="space-y-1.5 text-slate-300 list-disc list-inside">
+                            <li><strong>ISA Base:</strong> x86, AMD64.</li>
+                            <li><strong>Instrucciones Extendidas:</strong> AVX, AVX2, AVX-512 (ideal para cálculos complejos).</li>
+                            <li><strong>Registros:</strong> Registros de propósito general de 64 bits y registros vectoriales ZMM.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <h4 class="font-bold text-cyan-400 border-b border-slate-800 pb-1">Aspectos de Organización Interna</h4>
+                        <ul class="space-y-1.5 text-slate-300 list-disc list-inside">
+                            <li><strong>Núcleos / Hilos:</strong> 8 núcleos físicos y 16 hilos (vía SMT).</li>
+                            <li><strong>Tecnología de Memoria:</strong> 96 MB de Caché L3 con tecnología <strong>3D V-Cache</strong> (apilamiento vertical directo en silicio).</li>
+                            <li><strong>Fabricación:</strong> Nodos TSMC 5nm para CCD con diseño de Chiplets.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proceso Constructivo y Vistas -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Proceso Constructivo -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-slate-800 space-y-3">
+                    <h3 class="text-base font-bold text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-diagram-project text-sky-400"></i>
+                        <span>Proceso Constructivo de Computadoras</span>
+                    </h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3 bg-slate-950 rounded-lg border-l-4 border-sky-500">
+                            <h4 class="font-bold text-slate-200">1. Planificación</h4>
+                            <p class="text-slate-400 mt-0.5">Identificar necesidades del mercado, requisitos y restricciones (costos, energía, rendimiento).</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-lg border-l-4 border-cyan-500">
+                            <h4 class="font-bold text-slate-200">2. Diseño</h4>
+                            <p class="text-slate-400 mt-0.5">Definir la arquitectura lógica, seleccionar la ISA y modelar estructuras matemáticas.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-lg border-l-4 border-indigo-500">
+                            <h4 class="font-bold text-slate-200">3. Implementación</h4>
+                            <p class="text-slate-400 mt-0.5">Construcción física y organización: selección de tecnología de silicio, fotolitografía y ensamble.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perspectivas/Vistas -->
+                <div class="bg-slate-900 rounded-xl p-6 border border-slate-800 space-y-3">
+                    <h3 class="text-base font-bold text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-cubes text-cyan-400"></i>
+                        <span>Perspectivas del Sistema (Vistas)</span>
+                    </h3>
+                    <div class="space-y-4 text-xs sm:text-sm">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <div class="font-bold text-sky-400 mb-1 flex items-center space-x-2">
+                                <i class="fa-solid fa-gears"></i>
+                                <span>Vista Funcional</span>
+                            </div>
+                            <p class="text-slate-300 text-xs">
+                                Se enfoca en las operaciones individuales que realiza cada componente sin importar su forma física:
+                                <em>Procesamiento de datos, Almacenamiento, Transferencia y Control.</em>
+                            </p>
+                        </div>
+
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <div class="font-bold text-cyan-400 mb-1 flex items-center space-x-2">
+                                <i class="fa-solid fa-sitemap"></i>
+                                <span>Vista Estructural</span>
+                            </div>
+                            <p class="text-slate-300 text-xs">
+                                Se centra en la forma física en que los componentes e interconexiones (buses, puertos, buses internos) están dispuestos internamente dentro de la máquina.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Tema 1 -->
+            <div class="bg-slate-900/90 rounded-xl border border-sky-500/30 p-6 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <h3 class="text-base font-bold text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-graduation-cap text-sky-400"></i>
+                        <span>Evaluación Interactiva - Tema 1</span>
+                    </h3>
+                    <span id="quiz1-score" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">Puntaje: -/2</span>
+                </div>
+
+                <div class="space-y-6 text-xs sm:text-sm">
+                    <!-- Pregunta 1 -->
+                    <div class="space-y-2">
+                        <p class="font-semibold text-slate-200">1. ¿Cuál de las siguientes opciones es un atributo propio de la Arquitectura de una computadora?</p>
+                        <div class="grid sm:grid-cols-2 gap-2" id="q1-options">
+                            <button onclick="checkAnswer(1, 0, false, 'La frecuencia del reloj es un parámetro organizativo de hardware.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-sky-500/50 text-slate-300 transition-all">A) La frecuencia de reloj del procesador</button>
+                            <button onclick="checkAnswer(1, 1, true, 'Correcto! La ISA es la interfaz visible para el programador.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-sky-500/50 text-slate-300 transition-all">B) El conjunto de instrucciones (ISA) admitido</button>
+                            <button onclick="checkAnswer(1, 2, false, 'La tecnología de caché L3 pertenece a la organización interna.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-sky-500/50 text-slate-300 transition-all">C) La tecnología de fabricación de la caché (3D V-Cache)</button>
+                            <button onclick="checkAnswer(1, 3, false, 'El número de hilos de ejecución física es una característica organizativa.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-sky-500/50 text-slate-300 transition-all">D) El número de transistores en el chip</button>
+                        </div>
+                        <p id="q1-feedback" class="text-xs hidden mt-1 p-2 rounded-lg"></p>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="space-y-2">
+                        <p class="font-semibold text-slate-200">2. ¿Es posible cambiar la organización interna de un CPU manteniendo exactamente la misma arquitectura?</p>
+                        <div class="grid sm:grid-cols-2 gap-2" id="q2-options">
+                            <button onclick="checkAnswer(2, 0, true, 'Correcto! Dos CPU pueden tener distinta organización (frecuencia, núcleos) y ejecutar el mismo conjunto de instrucciones x86.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-sky-500/50 text-slate-300 transition-all">A) Sí, diferentes modelos pueden implementar la misma ISA x86 con distinto hardware.</button>
+                            <button onclick="checkAnswer(2, 1, false, 'Incorrecto. La arquitectura especifica el comportamiento lógico pero permite diversas implementaciones físicas.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-sky-500/50 text-slate-300 transition-all">B) No, cualquier cambio físico obliga a cambiar el conjunto de instrucciones.</button>
+                        </div>
+                        <p id="q2-feedback" class="text-xs hidden mt-1 p-2 rounded-lg"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TEMA 2: MÁQUINA SECUENCIAL Y VON NEUMANN -->
+        <!-- ========================================== -->
+        <section id="tema2" class="tab-content space-y-8 hidden">
+            <!-- Hero Header -->
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950 p-6 sm:p-8 border border-slate-800">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400">Unidad I</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Máquina Secuencial de Programa Almacenado</h2>
+                    <p class="text-slate-300 mt-2 text-sm sm:text-base leading-relaxed">
+                        El pilar de las computadoras modernas acuñado por John von Neumann: las instrucciones del programa y los datos se guardan juntos en una **memoria común**, permitiendo ejecutar múltiples tareas cambiando el software sin alterar el hardware físico.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Conceptos fundamentales -->
+            <div class="grid md:grid-cols-3 gap-4 text-xs sm:text-sm">
+                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-2">
+                    <div class="text-sky-400 font-bold flex items-center space-x-2">
+                        <i class="fa-solid fa-floppy-disk text-base"></i>
+                        <span>Programa Almacenado</span>
+                    </div>
+                    <p class="text-slate-300 leading-relaxed">
+                        Es un programa cuyas instrucciones se alojan en la memoria principal para que el procesador las lea y ejecute en secuencia.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-2">
+                    <div class="text-cyan-400 font-bold flex items-center space-x-2">
+                        <i class="fa-solid fa-memory text-base"></i>
+                        <span>Memoria Única</span>
+                    </div>
+                    <p class="text-slate-300 leading-relaxed">
+                        Instrucciones y datos comparten la misma memoria física, distinguiéndose únicamente por el contexto en el que son accedidos por el CPU.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-2">
+                    <div class="text-indigo-400 font-bold flex items-center space-x-2">
+                        <i class="fa-solid fa-list-ol text-base"></i>
+                        <span>Ejecución Secuencial</span>
+                    </div>
+                    <p class="text-slate-300 leading-relaxed">
+                        El procesador ejecuta las ordenes paso a paso (1. Búsqueda, 2. Interpretación, 3. Ejecución) respetando la secuencia del programa.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Diagrama Interactivo de las 5 Unidades Funcionales -->
+            <div class="bg-slate-900 rounded-xl border border-slate-800 p-6 space-y-6">
+                <div class="border-b border-slate-800 pb-3">
+                    <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-network-wired text-cyan-400"></i>
+                        <span>Diagrama Interactivo: Las 5 Unidades Funcionales</span>
+                    </h3>
+                    <p class="text-xs text-slate-400">Haz clic en cualquier unidad para examinar su función, información que recibe, procesa y genera.</p>
+                </div>
+
+                <!-- Esquema visual interactivo -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-3 p-4 bg-slate-950 rounded-2xl border border-slate-800/80">
+                    <!-- Entrada -->
+                    <button onclick="selectUnit('entrada')" id="unit-btn-entrada" class="unit-card p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 flex flex-col items-center text-center transition-all">
+                        <i class="fa-solid fa-keyboard text-2xl text-cyan-400 mb-2"></i>
+                        <span class="font-bold text-xs text-white">1. Entrada</span>
+                        <span class="text-[10px] text-slate-400 mt-1">Teclado, Mouse, Sensor</span>
+                    </button>
+
+                    <!-- Memoria -->
+                    <button onclick="selectUnit('memoria')" id="unit-btn-memoria" class="unit-card p-4 rounded-xl bg-slate-900 border border-sky-500/50 glow-active flex flex-col items-center text-center transition-all">
+                        <i class="fa-solid fa-memory text-2xl text-sky-400 mb-2"></i>
+                        <span class="font-bold text-xs text-white">2. Memoria</span>
+                        <span class="text-[10px] text-slate-400 mt-1">Programas y Datos</span>
+                    </button>
+
+                    <!-- Control -->
+                    <button onclick="selectUnit('control')" id="unit-btn-control" class="unit-card p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 flex flex-col items-center text-center transition-all">
+                        <i class="fa-solid fa-compass text-2xl text-amber-400 mb-2"></i>
+                        <span class="font-bold text-xs text-white">3. Control</span>
+                        <span class="text-[10px] text-slate-400 mt-1">Unidad de Control (CU)</span>
+                    </button>
+
+                    <!-- Órgano de Cálculo (ALU) -->
+                    <button onclick="selectUnit('calculo')" id="unit-btn-calculo" class="unit-card p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 flex flex-col items-center text-center transition-all">
+                        <i class="fa-solid fa-calculator text-2xl text-emerald-400 mb-2"></i>
+                        <span class="font-bold text-xs text-white">4. Órgano Cálculo</span>
+                        <span class="text-[10px] text-slate-400 mt-1">ALU (Aritmético-Lógico)</span>
+                    </button>
+
+                    <!-- Salida -->
+                    <button onclick="selectUnit('salida')" id="unit-btn-salida" class="unit-card p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 flex flex-col items-center text-center transition-all">
+                        <i class="fa-solid fa-desktop text-2xl text-purple-400 mb-2"></i>
+                        <span class="font-bold text-xs text-white">5. Salida</span>
+                        <span class="text-[10px] text-slate-400 mt-1">Pantalla, Impresora</span>
+                    </button>
+                </div>
+
+                <!-- Panel de Detalle Dinámico de la Unidad seleccionada -->
+                <div id="unit-detail-panel" class="bg-slate-950 p-5 rounded-xl border border-sky-500/30 space-y-3">
+                    <!-- Javascript completará esto -->
+                </div>
+            </div>
+
+            <!-- Quiz Tema 2 -->
+            <div class="bg-slate-900/90 rounded-xl border border-cyan-500/30 p-6 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <h3 class="text-base font-bold text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-graduation-cap text-cyan-400"></i>
+                        <span>Evaluación Interactiva - Tema 2</span>
+                    </h3>
+                    <span id="quiz2-score" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">Puntaje: -/2</span>
+                </div>
+
+                <div class="space-y-6 text-xs sm:text-sm">
+                    <!-- Pregunta 1 -->
+                    <div class="space-y-2">
+                        <p class="font-semibold text-slate-200">1. ¿Cuál es el postulado fundamental de la Arquitectura de Von Neumann?</p>
+                        <div class="grid sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(3, 0, false, 'Incorrecto. La memoria común es la característica distintiva de Von Neumann.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-cyan-500/50 text-slate-300 transition-all">A) Los datos y programas deben almacenarse en memorias físicamente separadas.</button>
+                            <button onclick="checkAnswer(3, 1, true, '¡Correcto! Von Neumann unifica el almacenamiento de programas y datos en una única memoria principal.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-cyan-500/50 text-slate-300 transition-all">B) Las instrucciones y los datos se almacenan juntos en la misma memoria principal.</button>
+                        </div>
+                        <p id="q3-feedback" class="text-xs hidden mt-1 p-2 rounded-lg"></p>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="space-y-2">
+                        <p class="font-semibold text-slate-200">2. ¿Qué unidad es responsable de coordinar y dirigir a todas las demás unidades funcionales?</p>
+                        <div class="grid sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(4, 0, true, '¡Correcto! La Unidad de Control emite las señales de sincronización y mando.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-cyan-500/50 text-slate-300 transition-all">A) Unidad de Control</button>
+                            <button onclick="checkAnswer(4, 1, false, 'La ALU realiza cálculos matemáticos pero no coordina las señales.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-cyan-500/50 text-slate-300 transition-all">B) Órgano de Cálculo (ALU)</button>
+                        </div>
+                        <p id="q4-feedback" class="text-xs hidden mt-1 p-2 rounded-lg"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TEMA 3: ORGANIZACIÓN DEL CPU Y CICLO DE INSTRUCCIÓN -->
+        <!-- ========================================== -->
+        <section id="tema3" class="tab-content space-y-8 hidden">
+            <!-- Hero Header -->
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-sky-950 p-6 sm:p-8 border border-slate-800">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-sky-400">Unidad II</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Organización Interna del CPU y Ciclo de Instrucción</h2>
+                    <p class="text-slate-300 mt-2 text-sm sm:text-base leading-relaxed">
+                        El procesador ejecuta programas repitiendo incansablemente el <strong>Ciclo de Instrucción</strong>: Búsqueda (Fetch), Decodificación (Decode), Ejecución (Execute) e Interrupciones (Interrupt). Descubre cómo interactúan sus registros internos (PC, IR, MAR, MDR, AX) con la ALU y los buses del sistema.
+                    </p>
+                </div>
+            </div>
+
+            <!-- SIMULADOR INTERACTIVO DEL CICLO DE INSTRUCCIÓN -->
+            <div class="bg-slate-900 rounded-2xl border border-sky-500/40 p-6 space-y-6 glow-cyan">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-400 text-xs font-semibold border border-sky-500/20">Simulador Didáctico</span>
+                        <h3 class="text-xl font-bold text-white mt-1 flex items-center space-x-2">
+                            <i class="fa-solid fa-play text-sky-400"></i>
+                            <span>Simulador Paso a Paso: Instrucción <code class="text-amber-400 bg-slate-950 px-2 py-0.5 rounded">ADD AX, [10]</code></span>
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-0.5">Mapeo de registros e intercambio de datos durante la ejecución</p>
+                    </div>
+
+                    <!-- Botones de Control del Simulador -->
+                    <div class="flex items-center space-x-2">
+                        <button onclick="resetSimulation()" class="px-3 py-2 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all flex items-center space-x-1">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            <span>Reiniciar</span>
+                        </button>
+                        <button onclick="nextSimStep()" id="btn-next-step" class="px-4 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-sky-500 to-cyan-500 text-white hover:opacity-90 shadow-lg shadow-sky-500/25 transition-all flex items-center space-x-2">
+                            <span>Siguiente Paso</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Barra de Progreso del Ciclo -->
+                <div class="grid grid-cols-4 gap-2 text-center text-xs font-semibold">
+                    <div id="phase-badge-0" class="p-2 rounded-lg bg-sky-600 text-white border border-sky-400 transition-all">1. FETCH (Búsqueda)</div>
+                    <div id="phase-badge-1" class="p-2 rounded-lg bg-slate-950 text-slate-500 border border-slate-800 transition-all">2. DECODE (Decodificación)</div>
+                    <div id="phase-badge-2" class="p-2 rounded-lg bg-slate-950 text-slate-500 border border-slate-800 transition-all">3. EXECUTE (Ejecución)</div>
+                    <div id="phase-badge-3" class="p-2 rounded-lg bg-slate-950 text-slate-500 border border-slate-800 transition-all">4. INTERRUPT (Interrupción)</div>
+                </div>
+
+                <!-- Estado del Hardware (Registros y Memoria) -->
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Registros Internos de CPU -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-sky-400 border-b border-slate-800 pb-2 flex items-center justify-between">
+                            <span>Registros CPU</span>
+                            <i class="fa-solid fa-microchip"></i>
+                        </h4>
+
+                        <div class="space-y-2 text-xs font-mono">
+                            <div class="flex justify-between items-center p-2 rounded bg-slate-900 border border-slate-800">
+                                <span class="text-slate-400">PC (Program Counter):</span>
+                                <span id="reg-pc" class="font-bold text-amber-400">0x00</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 rounded bg-slate-900 border border-slate-800">
+                                <span class="text-slate-400">IR (Inst. Register):</span>
+                                <span id="reg-ir" class="font-bold text-sky-400">VACÍO</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 rounded bg-slate-900 border border-slate-800">
+                                <span class="text-slate-400">MAR (Mem. Addr. Reg):</span>
+                                <span id="reg-mar" class="font-bold text-cyan-400">0x--</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 rounded bg-slate-900 border border-slate-800">
+                                <span class="text-slate-400">MDR (Mem. Data Reg):</span>
+                                <span id="reg-mdr" class="font-bold text-emerald-400">0x--</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 rounded bg-slate-900 border border-slate-800">
+                                <span class="text-slate-400">AX (Acumulador):</span>
+                                <span id="reg-ax" class="font-bold text-purple-400">15</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Memoria Principal SIMULADA -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-2 flex items-center justify-between">
+                            <span>Memoria Principal (RAM)</span>
+                            <i class="fa-solid fa-memory"></i>
+                        </h4>
+
+                        <div class="space-y-1.5 text-xs font-mono">
+                            <div id="mem-row-0" class="flex justify-between p-2 rounded bg-sky-500/20 border border-sky-500/40">
+                                <span class="text-slate-400">Dir [0x00]:</span>
+                                <span class="font-bold text-white">ADD AX, [10]</span>
+                            </div>
+                            <div id="mem-row-1" class="flex justify-between p-2 rounded bg-slate-900 border border-slate-800">
+                                <span class="text-slate-400">Dir [0x01]:</span>
+                                <span class="font-bold text-slate-500">NOP</span>
+                            </div>
+                            <div class="text-center text-slate-600 text-[10px]">. . .</div>
+                            <div id="mem-row-10" class="flex justify-between p-2 rounded bg-slate-900 border border-slate-800">
+                                <span class="text-slate-400">Dir [10] (Dato):</span>
+                                <span class="font-bold text-emerald-400">25</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Explicación Didáctica Actual -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-between space-y-3">
+                        <div>
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-emerald-400 border-b border-slate-800 pb-2 flex items-center justify-between">
+                                <span>Estado de la Operación</span>
+                                <i class="fa-solid fa-circle-info"></i>
+                            </h4>
+                            <p id="sim-explanation" class="text-xs text-slate-300 mt-3 leading-relaxed">
+                                Presiona <strong>"Siguiente Paso"</strong> para iniciar la fase <strong>FETCH</strong>. El CPU tomará la dirección en PC (0x00) y solicitará la instrucción a la memoria.
+                            </p>
+                        </div>
+
+                        <div id="sim-bus-indicator" class="p-2.5 rounded-lg bg-slate-900 text-[11px] text-slate-400 border border-slate-800 font-mono">
+                            Bus de Datos: <span class="text-white">Inactivo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Importancia de las Interrupciones -->
+            <div class="bg-slate-900 rounded-xl border border-slate-800 p-6 space-y-3">
+                <h3 class="text-base font-bold text-white flex items-center space-x-2">
+                    <i class="fa-solid fa-bell text-amber-400"></i>
+                    <span>¿Por qué son críticas las Interrupciones? (Polling vs. Interrupciones)</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    Las interrupciones permiten al CPU operar de forma <strong>asíncrona y eficiente</strong>. Sin ellas, el procesador tendría que realizar un <em>sondeo continuo (polling)</em>, desperdiciando millones de ciclos de reloj preguntando repetidamente a cada periférico si tiene datos. Con las interrupciones, los dispositivos notifican directamente cuando necesitan atención.
+                </p>
+            </div>
+
+            <!-- Quiz Tema 3 -->
+            <div class="bg-slate-900/90 rounded-xl border border-sky-500/30 p-6 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <h3 class="text-base font-bold text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-graduation-cap text-sky-400"></i>
+                        <span>Evaluación Interactiva - Tema 3</span>
+                    </h3>
+                    <span id="quiz3-score" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">Puntaje: -/2</span>
+                </div>
+
+                <div class="space-y-6 text-xs sm:text-sm">
+                    <!-- Pregunta 1 -->
+                    <div class="space-y-2">
+                        <p class="font-semibold text-slate-200">1. ¿Qué registro almacena la dirección de memoria de la Siguiente instrucción a ejecutar?</p>
+                        <div class="grid sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(5, 0, true, '¡Correcto! El PC (Program Counter) contiene siempre la siguiente dirección de instrucción.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-sky-500/50 text-slate-300 transition-all">A) PC (Program Counter)</button>
+                            <button onclick="checkAnswer(5, 1, false, 'El IR guarda la instrucción actual extraída, no la siguiente dirección.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-sky-500/50 text-slate-300 transition-all">B) IR (Instruction Register)</button>
+                        </div>
+                        <p id="q5-feedback" class="text-xs hidden mt-1 p-2 rounded-lg"></p>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="space-y-2">
+                        <p class="font-semibold text-slate-200">2. En la instrucción `ADD AX, [10]`, ¿qué significan los corchetes en `[10]`?</p>
+                        <div class="grid sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(6, 0, false, 'Incorrecto. Si fuera el número 10 sería un direccionamiento inmediato sin corchetes.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-sky-500/50 text-slate-300 transition-all">A) Que se debe sumar el constante número 10 directamente.</button>
+                            <button onclick="checkAnswer(6, 1, true, '¡Exacto! Los corchetes indican direccionamiento directo: el operando está en la dirección de memoria 10.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-sky-500/50 text-slate-300 transition-all">B) Que se busca el valor guardado en la dirección física de memoria 10.</button>
+                        </div>
+                        <p id="q6-feedback" class="text-xs hidden mt-1 p-2 rounded-lg"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TEMA 4: CONJUNTO DE INSTRUCCIONES (ISA) Y DIRECCIONAMIENTO -->
+        <!-- ========================================== -->
+        <section id="tema4" class="tab-content space-y-8 hidden">
+            <!-- Hero Header -->
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 p-6 sm:p-8 border border-slate-800">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400">Unidad III</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Diseño del Conjunto de Instrucciones (ISA)</h2>
+                    <p class="text-slate-300 mt-2 text-sm sm:text-base leading-relaxed">
+                        El repertorio de instrucciones es el vocabulario del procesador. Un buen diseño debe cumplir con <strong>Completitud, Ortogonalidad y Eficiencia</strong>. Explora los tipos de instrucciones y cómo los **Modos de Direccionamiento** determinan el cálculo de operandos.
+                    </p>
+                </div>
+            </div>
+
+            <!-- SIMULADOR Y CALCULADORA DE MODOS DE DIRECCIONAMIENTO -->
+            <div class="bg-slate-900 rounded-2xl border border-indigo-500/40 p-6 space-y-6">
+                <div class="border-b border-slate-800 pb-3">
+                    <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-semibold border border-indigo-500/20">Calculadora Interactiva</span>
+                    <h3 class="text-xl font-bold text-white mt-1 flex items-center space-x-2">
+                        <i class="fa-solid fa-calculator text-indigo-400"></i>
+                        <span>Simulador de Modos de Direccionamiento</span>
+                    </h3>
+                    <p class="text-xs text-slate-400">Selecciona un modo para resolver dinámicamente la ubicación del operando final.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Selección del Modo -->
+                    <div class="space-y-3">
+                        <label class="block text-xs font-bold text-slate-300 uppercase">Selecciona el Modo:</label>
+                        <div class="space-y-2">
+                            <button onclick="setAddressingMode('inmediato')" id="mode-btn-inmediato" class="mode-btn w-full p-3 rounded-xl bg-indigo-600 text-white font-semibold text-xs text-left transition-all">1. Inmediato (Ej: MOV AX, 42)</button>
+                            <button onclick="setAddressingMode('registro')" id="mode-btn-registro" class="mode-btn w-full p-3 rounded-xl bg-slate-950 text-slate-300 font-semibold text-xs text-left hover:bg-slate-800 transition-all">2. De Registro (Ej: ADD AX, BX)</button>
+                            <button onclick="setAddressingMode('directo')" id="mode-btn-directo" class="mode-btn w-full p-3 rounded-xl bg-slate-950 text-slate-300 font-semibold text-xs text-left hover:bg-slate-800 transition-all">3. Directo / Absoluto (Ej: MOV AX, [0x04])</button>
+                            <button onclick="setAddressingMode('indirecto')" id="mode-btn-indirecto" class="mode-btn w-full p-3 rounded-xl bg-slate-950 text-slate-300 font-semibold text-xs text-left hover:bg-slate-800 transition-all">4. Indirecto de Registro (Ej: MOV AX, [BX])</button>
+                            <button onclick="setAddressingMode('indice')" id="mode-btn-indice" class="mode-btn w-full p-3 rounded-xl bg-slate-950 text-slate-300 font-semibold text-xs text-left hover:bg-slate-800 transition-all">5. Indexado (Ej: MOV AX, [Base + SI])</button>
+                        </div>
+                    </div>
+
+                    <!-- Estado Actual de Memoria & Registros -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 text-xs font-mono">
+                        <h4 class="font-bold text-slate-200 border-b border-slate-800 pb-2">Estado del Hardware Simulados</h4>
+
+                        <div class="space-y-2">
+                            <div class="text-sky-400 font-bold">Registros:</div>
+                            <div class="flex justify-between bg-slate-900 p-1.5 rounded"><span>BX =</span> <span class="text-amber-400">0x04</span></div>
+                            <div class="flex justify-between bg-slate-900 p-1.5 rounded"><span>SI (Índice) =</span> <span class="text-amber-400">0x02</span></div>
+                            <div class="flex justify-between bg-slate-900 p-1.5 rounded"><span>Base =</span> <span class="text-amber-400">0x02</span></div>
+
+                            <div class="text-cyan-400 font-bold pt-2">Memoria RAM:</div>
+                            <div class="flex justify-between bg-slate-900 p-1.5 rounded"><span>Dir [0x02]:</span> <span class="text-emerald-400">0x04</span></div>
+                            <div class="flex justify-between bg-slate-900 p-1.5 rounded"><span>Dir [0x04]:</span> <span class="text-emerald-400">99 (Dato Final)</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Resultado de la Resolución -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-indigo-500/30 flex flex-col justify-between space-y-3">
+                        <div>
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-indigo-400 border-b border-slate-800 pb-2">Resolución del Operando</h4>
+                            <div id="mode-resolution-output" class="mt-3 space-y-2 text-xs sm:text-sm">
+                                <!-- JS insertará detalles -->
+                            </div>
+                        </div>
+
+                        <div id="mode-usage-note" class="p-3 bg-slate-900 rounded-lg text-xs text-slate-400 border border-slate-800">
+                            <!-- JS insertará caso de uso -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Tema 4 -->
+            <div class="bg-slate-900/90 rounded-xl border border-indigo-500/30 p-6 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <h3 class="text-base font-bold text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-graduation-cap text-indigo-400"></i>
+                        <span>Evaluación Interactiva - Tema 4</span>
+                    </h3>
+                    <span id="quiz4-score" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">Puntaje: -/2</span>
+                </div>
+
+                <div class="space-y-6 text-xs sm:text-sm">
+                    <!-- Pregunta 1 -->
+                    <div class="space-y-2">
+                        <p class="font-semibold text-slate-200">1. ¿En qué consiste el modo de direccionamiento Indirecto de Registro?</p>
+                        <div class="grid sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(7, 0, false, 'Ese es el modo directo.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-indigo-500/50 text-slate-300 transition-all">A) El dato está escrito explícitamente dentro de la instrucción.</button>
+                            <button onclick="checkAnswer(7, 1, true, '¡Correcto! El registro almacena la dirección de memoria donde está el dato (actúa como puntero).')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-indigo-500/50 text-slate-300 transition-all">B) El registro contiene la dirección de memoria donde se guarda el dato final.</button>
+                        </div>
+                        <p id="q7-feedback" class="text-xs hidden mt-1 p-2 rounded-lg"></p>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="space-y-2">
+                        <p class="font-semibold text-slate-200">2. ¿Qué ocurre si un ISA tiene un diseño ineficiente con instrucciones innecesarias?</p>
+                        <div class="grid sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(8, 0, true, '¡Correcto! Malgasta transistores/silicio, aumentando calor y consumo inútilmente.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-indigo-500/50 text-slate-300 transition-all">A) Desperdicia espacio físico en silicio, aumenta el consumo eléctrico y el calor.</button>
+                            <button onclick="checkAnswer(8, 1, false, 'Todo lo contrario, degrada el rendimiento.')" class="p-2.5 text-left rounded-lg bg-slate-950 border border-slate-800 hover:border-indigo-500/50 text-slate-300 transition-all">B) Aumenta la velocidad del procesador automáticamente.</button>
+                        </div>
+                        <p id="q8-feedback" class="text-xs hidden mt-1 p-2 rounded-lg"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>Plataforma Educativa Interactiva - Arquitectura y Organización de Computadoras II</p>
+            <p class="mt-1 text-slate-600">Basado en el plan académico UNI - Elaborado para aprendizaje interactivo</p>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('block'));
+
+            // Show target
+            const target = document.getElementById(tabId);
+            if(target) {
+                target.classList.remove('hidden');
+                target.classList.add('block');
+            }
+
+            // Update tab button styles
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.className = "nav-tab flex items-center space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent";
+            });
+
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            if(activeBtn) {
+                activeBtn.className = "nav-tab flex items-center space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap bg-sky-600/20 text-sky-400 border border-sky-500/30";
+            }
+        }
+
+        function filterTable(type) {
+            const rows = document.querySelectorAll('.table-row-item');
+            rows.forEach(row => {
+                if(type === 'all') {
+                    row.style.display = '';
+                } else if(type === 'arq') {
+                    row.style.display = row.classList.contains('arq-row') ? '' : 'none';
+                } else if(type === 'org') {
+                    row.style.display = row.classList.contains('org-row') ? '' : 'none';
+                }
+            });
+
+            // Update buttons
+            ['all', 'arq', 'org'].forEach(t => {
+                const btn = document.getElementById(`btn-filter-${t}`);
+                if(t === type) {
+                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium bg-sky-600 text-white transition-all";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all";
+                }
+            });
+        }
+
+        const unitsData = {
+            entrada: {
+                title: "1. Unidad de Entrada",
+                color: "text-cyan-400",
+                func: "Introduce información y datos desde el entorno exterior a la computadora.",
+                recibe: "Datos del usuario o dispositivos (Teclado, Mouse, Sensores).",
+                genera: "Datos digitales en formato binario listos para ser almacenados o procesados.",
+                rel: "Envía datos directamente hacia la Memoria Principal o Registros."
+            },
+            memoria: {
+                title: "2. Memoria Principal (RAM)",
+                color: "text-sky-400",
+                func: "Almacena de forma unificada tanto las instrucciones del programa como los datos de trabajo.",
+                recibe: "Instrucciones del software y datos provenientes de la Entrada o ALU.",
+                genera: "Proporciona instrucciones a la Unidad de Control y datos a la ALU.",
+                rel: "Se conecta estrechamente con la Unidad de Control (instrucciones) y la ALU (operandos)."
+            },
+            control: {
+                title: "3. Unidad de Control (CU)",
+                color: "text-amber-400",
+                func: "Directora de orquesta: coordina y sincroniza el funcionamiento de todas las demás unidades.",
+                recibe: "Código de operación (Opcode) de la instrucción actual desde la Memoria.",
+                genera: "Señales de control electrónicas que activan circuitos en la ALU, Memoria y E/S.",
+                rel: "Gobierno central que dicta cuándo lee la memoria y qué operación hace la ALU."
+            },
+            calculo: {
+                title: "4. Órgano de Cálculo (ALU)",
+                color: "text-emerald-400",
+                func: "Realiza todas las operaciones matemáticas (suma, resta) y evaluaciones lógicas (AND, OR, NOT).",
+                recibe: "Datos y operandos desde la Memoria Principal o Registros.",
+                genera: "Resultados numéricos/lógicos y actualiza las banderas de estado (Flags).",
+                rel: "Alimentada por los registros y envía sus resultados de vuelta a la Memoria."
+            },
+            salida: {
+                title: "5. Unidad de Salida",
+                color: "text-purple-400",
+                func: "Presenta los resultados procesados hacia el usuario o el entorno exterior.",
+                recibe: "Información procesada desde la Memoria o el CPU.",
+                genera: "Información perceptible por humanos (Pantalla, Impresora, Audio).",
+                rel: "Recibe los resultados finales almacenados previamente en la Memoria."
+            }
+        };
+
+        function selectUnit(unitKey) {
+            const data = unitsData[unitKey];
+            if(!data) return;
+
+            // Highlight buttons
+            document.querySelectorAll('.unit-card').forEach(btn => {
+                btn.classList.remove('border-sky-500/50', 'glow-active');
+                btn.classList.add('border-slate-800');
+            });
+            const activeBtn = document.getElementById(`unit-btn-${unitKey}`);
+            if(activeBtn) {
+                activeBtn.classList.remove('border-slate-800');
+                activeBtn.classList.add('border-sky-500/50', 'glow-active');
+            }
+
+            // Render detail
+            const panel = document.getElementById('unit-detail-panel');
+            panel.innerHTML = `
+                <div class="flex items-center space-x-2 border-b border-slate-800 pb-2">
+                    <span class="font-bold text-base ${data.color}">${data.title}</span>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-3 text-xs text-slate-300">
+                    <div><strong>Función:</strong> ${data.func}</div>
+                    <div><strong>Información que Recibe:</strong> ${data.recibe}</div>
+                    <div><strong>Información que Genera:</strong> ${data.genera}</div>
+                    <div><strong>Relación con otras unidades:</strong> ${data.rel}</div>
+                </div>
+            `;
+        }
+
+        let simStep = 0;
+        const simPhases = [
+            {
+                phase: 0,
+                pc: "0x00", ir: "ADD AX, [10]", mar: "0x00", mdr: "ADD AX, [10]", ax: "15",
+                exp: "<strong>Fase FETCH:</strong> El CPU lee la dirección en PC (0x00), la coloca en MAR. La memoria devuelve la instrucción 'ADD AX, [10]' al MDR y pasa al IR. El PC se incrementa a 0x01.",
+                bus: "Bus de Direcciones: 0x00 | Bus de Datos: Carga Instrucción"
+            },
+            {
+                phase: 1,
+                pc: "0x01", ir: "ADD AX, [10]", mar: "10", mdr: "ADD AX, [10]", ax: "15",
+                exp: "<strong>Fase DECODE:</strong> La Unidad de Control analiza el Opcode 'ADD'. Identifica que requiere leer el dato en la dirección de memoria física 10. MAR se actualiza con la dirección 10.",
+                bus: "Unidad de Control decodifica suma Registro-Memoria"
+            },
+            {
+                phase: 2,
+                pc: "0x01", ir: "ADD AX, [10]", mar: "10", mdr: "25", ax: "40",
+                exp: "<strong>Fase EXECUTE:</strong> Se lee el valor 25 de la dirección 10 en MDR. La ALU realiza la suma: AX (15) + Dato (25) = 40. El registro AX se sobreescribe con el nuevo resultado (40).",
+                bus: "ALU ejecuta suma: 15 + 25 -> AX = 40"
+            },
+            {
+                phase: 3,
+                pc: "0x01", ir: "ADD AX, [10]", mar: "10", mdr: "25", ax: "40",
+                exp: "<strong>Fase INTERRUPT:</strong> El CPU comprueba si existe alguna señal de interrupción pendiente de periféricos antes de iniciar el siguiente ciclo.",
+                bus: "Líneas de Interrupción: Sin peticiones pendientes"
+            }
+        ];
+
+        function updateSimUI() {
+            const state = simPhases[simStep];
+
+            // Badges update
+            for(let i=0; i<4; i++) {
+                const b = document.getElementById(`phase-badge-${i}`);
+                if(i === state.phase) {
+                    b.className = "p-2 rounded-lg bg-sky-600 text-white border border-sky-400 font-bold shadow-lg shadow-sky-500/30 transition-all";
+                } else {
+                    b.className = "p-2 rounded-lg bg-slate-950 text-slate-500 border border-slate-800 transition-all";
+                }
+            }
+
+            // Register values
+            document.getElementById('reg-pc').textContent = state.pc;
+            document.getElementById('reg-ir').textContent = state.ir;
+            document.getElementById('reg-mar').textContent = state.mar;
+            document.getElementById('reg-mdr').textContent = state.mdr;
+            document.getElementById('reg-ax').textContent = state.ax;
+
+            // Explanation & bus
+            document.getElementById('sim-explanation').innerHTML = state.exp;
+            document.getElementById('sim-bus-indicator').innerHTML = `Bus: <span class="text-sky-400 font-bold">${state.bus}</span>`;
+
+            // Memory row highlighting
+            document.getElementById('mem-row-0').className = simStep === 0 ? "flex justify-between p-2 rounded bg-sky-500/30 border border-sky-400" : "flex justify-between p-2 rounded bg-slate-900 border border-slate-800";
+            document.getElementById('mem-row-10').className = simStep >= 1 ? "flex justify-between p-2 rounded bg-emerald-500/30 border border-emerald-400" : "flex justify-between p-2 rounded bg-slate-900 border border-slate-800";
+        }
+
+        function nextSimStep() {
+            simStep = (simStep + 1) % simPhases.length;
+            updateSimUI();
+        }
+
+        function resetSimulation() {
+            simStep = 0;
+            updateSimUI();
+        }
+
+        const addressingModesData = {
+            inmediato: {
+                expr: "MOV AX, 42",
+                calc: "El dato constante está incluido directamente en la instrucción.",
+                target: "Valor directo: 42",
+                note: "<strong>Uso:</strong> Ideal para inicializar contadores o asignar valores fijos sin consultar la memoria RAM."
+            },
+            registro: {
+                expr: "ADD AX, BX",
+                calc: "El operando no está en la RAM, sino en el registro ultrarrápido BX (BX = 0x04).",
+                target: "Valor en Registro BX: 0x04",
+                note: "<strong>Uso:</strong> Ejecución a la máxima velocidad posible dentro del procesador."
+            },
+            directo: {
+                expr: "MOV AX, [0x04]",
+                calc: "La instrucción especifica la dirección exacta 0x04. Se consulta en la RAM la posición 0x04.",
+                target: "Dato en Dir [0x04]: 99",
+                note: "<strong>Uso:</strong> Acceso a variables globales fijas."
+            },
+            indirecto: {
+                expr: "MOV AX, [BX]",
+                calc: "BX tiene la dirección '0x04'. El procesador acude a la RAM en la posición apuntada por BX (0x04).",
+                target: "Dato obtenido en Dir [BX=0x04]: 99",
+                note: "<strong>Uso:</strong> Actúa como puntero. Excelente para recorrer listas o estructuras de datos."
+            },
+            indice: {
+                expr: "MOV AX, [Base + SI]",
+                calc: "Dirección Efectiva = Base (0x02) + SI (0x02) = Dir 0x04. Se lee en la RAM la dirección 0x04.",
+                target: "Dato en Dir [0x02 + 0x02 = 0x04]: 99",
+                note: "<strong>Uso:</strong> Ideal para acceder a elementos específicos de un Vector o Arreglo (Array[i])."
+            }
+        };
+
+        function setAddressingMode(modeKey) {
+            const data = addressingModesData[modeKey];
+            if(!data) return;
+
+            // Highlight buttons
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.className = "mode-btn w-full p-3 rounded-xl bg-slate-950 text-slate-300 font-semibold text-xs text-left hover:bg-slate-800 transition-all";
+            });
+            const activeBtn = document.getElementById(`mode-btn-${modeKey}`);
+            if(activeBtn) {
+                activeBtn.className = "mode-btn w-full p-3 rounded-xl bg-indigo-600 text-white font-semibold text-xs text-left transition-all";
+            }
+
+            // Output result
+            document.getElementById('mode-resolution-output').innerHTML = `
+                <div class="text-xs font-mono text-amber-400">Instrucción: <strong>${data.expr}</strong></div>
+                <div class="text-xs text-slate-300">${data.calc}</div>
+                <div class="p-2.5 rounded bg-indigo-950/80 border border-indigo-500/40 text-emerald-400 font-mono font-bold">${data.target}</div>
+            `;
+            document.getElementById('mode-usage-note').innerHTML = data.note;
+        }
+
+        function checkAnswer(qNum, optIdx, isCorrect, explanation) {
+            const feedbackEl = document.getElementById(`q${qNum}-feedback`);
+            if(!feedbackEl) return;
+
+            feedbackEl.classList.remove('hidden', 'bg-emerald-950/80', 'text-emerald-300', 'border-emerald-500/40', 'bg-rose-950/80', 'text-rose-300', 'border-rose-500/40');
+
+            if(isCorrect) {
+                feedbackEl.classList.add('bg-emerald-950/80', 'text-emerald-300', 'border', 'border-emerald-500/40');
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> ${explanation}`;
+            } else {
+                feedbackEl.classList.add('bg-rose-950/80', 'text-rose-300', 'border', 'border-rose-500/40');
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> ${explanation}`;
+            }
+        }
+
+        // Initialize default UI views on load
+        window.onload = function() {
+            selectUnit('memoria');
+            updateSimUI();
+            setAddressingMode('inmediato');
+        };
+    </script>
+</body>
+</html>
