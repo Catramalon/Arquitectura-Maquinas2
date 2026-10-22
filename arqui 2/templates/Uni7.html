@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad VII - Arquitectura de Computadoras II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0b1120',
+                        card: '#1e293b',
+                        primary: '#3b82f6',
+                        accent: '#06b6d4'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animaciones suaves y personalizadas */
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #0b1120; color: #f8fafc; }
+        .glass-nav { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.4); border-color: rgba(6, 182, 212, 0.5); }
+        .gradient-text { background: linear-gradient(to right, #f43f5e, #f97316); -webkit-background-clip: text; color: transparent; }
+        
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="antialiased selection:bg-rose-500 selection:text-white">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="glass-nav sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center py-4 gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-gradient-to-br from-rose-500 to-orange-500 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-microchip text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white">ARQUITECTURA II</h1>
+                        <p class="text-xs text-slate-400">Universidad Nacional de Ingeniería</p>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul class="flex flex-wrap justify-center gap-2">
+                        <li><a href="Principal.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Inicio</a></li>
+                        <li><a href="Uni4.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad IV</a></li>
+                        <li><a href="Uni5.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad V</a></li>
+                        <li><a href="Uni6.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad VI</a></li>
+                        <!-- Botón Activo: Unidad VII -->
+                        <li><a href="Uni7.html" class="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-rose-600 to-orange-500 text-white shadow-md">Unidad VII</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative py-16 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="max-w-5xl mx-auto px-4 relative z-10 text-center">
+            <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-400 text-sm font-bold tracking-widest uppercase border border-rose-500/30">Comunicación Periférica</span>
+            <h2 class="mt-6 text-4xl md:text-5xl font-extrabold text-white mb-6">Sistema de <span class="gradient-text">Entrada y Salida</span></h2>
+            <p class="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                Los sistemas de E/S comunican a la computadora con los periféricos externos, manejando diferencias de velocidad y formatos mediante módulos e interfaces estándar[cite: 9].
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-6xl mx-auto px-4 pb-20 space-y-16">
+
+        <!-- SECCIÓN 1: TÉCNICAS DE TRANSFERENCIA -->
+        <div>
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-right-left text-rose-500"></i> Técnicas de Transferencia
+            </h3>
+            <div class="grid md:grid-cols-3 gap-6">
+                
+                <!-- Polling -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover relative overflow-hidden flex flex-col">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-orange-500/10 rounded-full blur-2xl"></div>
+                    <i class="fa-solid fa-spinner text-3xl text-orange-400 mb-4"></i>
+                    <h4 class="text-lg font-bold text-white mb-2">E/S Programada (Polling)</h4>
+                    <p class="text-sm text-slate-400 flex-grow">El CPU gasta tiempo comprobando continuamente si el dispositivo está listo[cite: 9].</p>
+                </div>
+
+                <!-- Interrupciones -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover relative overflow-hidden flex flex-col">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-rose-500/10 rounded-full blur-2xl"></div>
+                    <i class="fa-solid fa-bolt text-3xl text-rose-400 mb-4"></i>
+                    <h4 class="text-lg font-bold text-white mb-2">Interrupciones</h4>
+                    <p class="text-sm text-slate-400 flex-grow">El dispositivo avisa al CPU enviando una señal (INT) cuando está listo, liberando al procesador[cite: 9].</p>
+                </div>
+
+                <!-- DMA -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover relative overflow-hidden flex flex-col">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl"></div>
+                    <i class="fa-solid fa-truck-fast text-3xl text-purple-400 mb-4"></i>
+                    <h4 class="text-lg font-bold text-white mb-2">DMA (Acceso Directo a Memoria)</h4>
+                    <p class="text-sm text-slate-400 flex-grow">Un controlador de DMA transfiere bloques enteros de datos entre el periférico y la memoria sin que el CPU intervenga en cada byte[cite: 9].</p>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- INFORMACIÓN COMPLETA DE LAS DIAPOSITIVAS DE LA UNIDAD VII -->
+        <div class="space-y-16">
+
+            <!-- INTRODUCCIÓN Y BUSES -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-plug text-rose-500"></i> Sistema de Entrada/Salida y Estructura de Interconexión
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Función del sistema de E/S</h4>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            El sistema de Entrada/Salida se encarga de la función de transferencia externa de la computadora y forma parte de la estructura de interconexión junto con la CPU y el sistema de memoria.
+                        </p>
+                        <ul class="text-slate-300 space-y-2">
+                            <li><strong>Unidad de entrada:</strong> recibe datos y programas desde el exterior en una forma utilizable por el CPU.</li>
+                            <li><strong>Unidad de salida:</strong> entrega los resultados del procesamiento en una forma útil para el ser humano.</li>
+                            <li><strong>Interfaz Hombre–Máquina:</strong> habilita la interacción del hombre con la máquina.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Arquitectura de buses</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li><strong>Bus del sistema:</strong> interconecta CPU y memoria.</li>
+                            <li><strong>Bus de expansión o de E/S:</strong> conecta el sistema con los periféricos.</li>
+                            <li>Un puente o controlador de E/S enlaza el bus del sistema con el bus de expansión.</li>
+                            <li>El bus de expansión permite conectar múltiples periféricos.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ESTANDARIZACIÓN -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-arrows-left-right-to-line text-orange-500"></i> Estandarización y Diseño de Buses
+                </h3>
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover mb-6">
+                    <h4 class="text-xl font-bold text-white mb-3">Estandarización de Entrada/Salida</h4>
+                    <p class="text-slate-300 leading-relaxed">
+                        Los dispositivos pueden basarse en tecnologías electrónicas, electromecánicas u ópticas. Por ello se requiere estandarizar la forma de comunicación. Los estándares de buses de expansión establecen las especificaciones que deben cumplir los dispositivos para comunicarse con la computadora y definen características físicas, eléctricas y el protocolo de comunicación.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-2">Tipo de bus</h4>
+                        <p class="text-slate-300">Puede ser <strong>serial</strong> o <strong>paralelo</strong>.</p>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-2">Líneas</h4>
+                        <p class="text-slate-300">Pueden ser <strong>dedicadas</strong> o <strong>multiplexadas</strong>.</p>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-2">Arbitraje</h4>
+                        <p class="text-slate-300">Define la asignación del bus a un dispositivo único.</p>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-2">Temporización</h4>
+                        <p class="text-slate-300"><strong>Síncrono:</strong> un reloj sincroniza las actividades. <strong>Asíncrono:</strong> usa señales de reconocimiento de inicio y finalización.</p>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-2">Anchura</h4>
+                        <p class="text-slate-300">Cantidad de bits o tamaño del bus y velocidad máxima de transferencia.</p>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-2">Transacciones</h4>
+                        <p class="text-slate-300">Lectura, escritura, operaciones por bloque y diferentes combinaciones.</p>
+                    </div>
+                </div>
+                <div class="mt-6 bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                    <h4 class="text-xl font-bold text-white mb-4">Ejemplos de buses estándar</h4>
+                    <div class="grid md:grid-cols-3 gap-4 text-slate-300">
+                        <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                            <strong class="text-orange-400">ISA</strong>
+                            <p class="mt-2">Industry Standard Architecture. Bus original de 8 bits de la IBM PC en 1980; se extendió a 16 bits con ISA XT en 1984. El original funcionaba a 4.77 MHz, ISA XT a 8 MHz y la presentación indica escalamiento hasta 13 MHz.</p>
+                        </div>
+                        <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                            <strong class="text-rose-400">PCI / PCIe</strong>
+                            <p class="mt-2">PCI (Peripheral Component Interconnect) de 32 y 64 bits a 33–133 MHz. PCIe es la evolución serial con 1, 4 y 16 canales.</p>
+                        </div>
+                        <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                            <strong class="text-purple-400">Externos</strong>
+                            <p class="mt-2">USB, FireWire (IEEE 1394) y eSATA.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULO E/S -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-microchip text-rose-500"></i> Módulo de Entrada/Salida y Direccionamiento
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Módulo de E/S</h4>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            Es el hardware que habilita la interfaz del dispositivo con el bus de interconexión y gestiona la interacción con el dispositivo.
+                        </p>
+                        <ul class="text-slate-300 space-y-2">
+                            <li>Activación del acceso al dispositivo de E/S mediante direccionamiento.</li>
+                            <li>Transferencia de datos.</li>
+                            <li>Lógica de control.</li>
+                            <li>Información del estado.</li>
+                            <li>La interfaz al almacenamiento de datos o información del dispositivo a través del módulo suele denominarse <strong>puerto</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Direccionamiento de dispositivos</h4>
+                        <p class="text-slate-300 leading-relaxed mb-4">Cada dispositivo debe intercambiar datos, información de estado y forma de control con la computadora. Para ello se deben poder direccionar sus puertos.</p>
+                        <div class="space-y-4">
+                            <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                                <h5 class="font-bold text-rose-400 mb-2">Mapeo integrado</h5>
+                                <p class="text-slate-300">Memoria y dispositivos de E/S comparten el mismo espacio de direcciones. Usualmente se divide en una parte baja para memoria y una parte alta para E/S; el bit más significativo puede diferenciar ambos tipos. Se usan las mismas instrucciones, por ejemplo MOV.</p>
+                            </div>
+                            <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                                <h5 class="font-bold text-orange-400 mb-2">Mapeo separado</h5>
+                                <p class="text-slate-300">Existe un mapa independiente para memoria y otro para E/S. La CPU necesita soporte para diferenciar una dirección de memoria de una de E/S y se usan instrucciones especiales como IN y OUT. La presentación usa como ejemplo la dirección 378H para ilustrar direcciones posibles en PC.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TECNICAS E INTERRUPCIONES -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-bolt text-orange-500"></i> Técnicas de Comunicación e Interrupciones
+                </h3>
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover mb-6">
+                    <h4 class="text-xl font-bold text-white mb-3">Técnicas de comunicación con dispositivos</h4>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                            <h5 class="font-bold text-orange-400">Transferencia dirigida por programa</h5>
+                            <p class="text-slate-300 mt-2">Conociendo la dirección del dispositivo, el programa puede realizar la transferencia. Es necesario revisar periódicamente el estado del dispositivo mediante <strong>polling</strong>.</p>
+                        </div>
+                        <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                            <h5 class="font-bold text-rose-400">Interrupciones</h5>
+                            <p class="text-slate-300 mt-2">Evitan que el CPU tenga que revisar continuamente el estado: el dispositivo solicita atención cuando la necesita.</p>
+                        </div>
+                        <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                            <h5 class="font-bold text-purple-400">DMA e IOP</h5>
+                            <p class="text-slate-300 mt-2">Un procesador auxiliar puede apoyar la transferencia, reduciendo la intervención directa del CPU.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Tipos de interrupciones</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li><strong>Síncronas, de software o excepciones:</strong> se producen de forma síncrona con la ejecución de instrucciones; pueden ser consecuencia de un error de programación o de una situación excepcional, como la división por cero.</li>
+                            <li><strong>Asíncronas, de hardware:</strong> se producen independientemente de la ejecución del programa, por dispositivos o periféricos que solicitan atención del CPU.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Interrupciones de hardware</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li>Son mecanismos de coordinación y sincronización para que los dispositivos de E/S soliciten servicio del CPU.</li>
+                            <li>Al final del ciclo de instrucción, el CPU verifica las solicitudes.</li>
+                            <li>El CPU proporciona una señal de entrada para aceptar interrupciones y una señal de salida para indicar atención a la solicitud, ejecutando la rutina de servicio de interrupción.</li>
+                            <li>Como hay muchos dispositivos y el CPU tiene una señal, se requiere un árbitro.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ARBITRAJE Y PIC -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-code-branch text-rose-500"></i> Múltiples Solicitudes de Interrupción
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Arbitraje y prioridades</h4>
+                        <p class="text-slate-300 mb-4">Se selecciona el dispositivo que será atendido asignando prioridades y utilizando un árbitro. La presentación muestra tres esquemas:</p>
+                        <ul class="text-slate-300 space-y-2">
+                            <li><strong>Árbitro paralelo.</strong></li>
+                            <li><strong>Árbitro serial.</strong></li>
+                            <li><strong>Árbitro híbrido.</strong></li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Identificación del dispositivo</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li><strong>Escrutinio:</strong> organización en colector abierto para detectar la solicitud y realizar polling de controladores.</li>
+                            <li><strong>ID de dispositivo y vector de interrupción:</strong> cada dispositivo tiene un ID que corresponde a una entrada de la tabla de vectores.</li>
+                            <li>El vector es un puntero a la <strong>ISR</strong> correspondiente.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-6 bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                    <h4 class="text-xl font-bold text-white mb-4">Habilitación, inhabilitación y enmascaramiento</h4>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        En ciertos casos es necesario inhabilitar interrupciones, por ejemplo para evitar que una ISR sea interrumpida. El CPU verifica el estado en el código de condición, que es establecido o restablecido mediante instrucciones Enable/Disable. También pueden enmascararse interrupciones selectivamente en el árbitro. Algunas no son enmascarables (NMI), como el refresco de la memoria dinámica indicado en la presentación.
+                    </p>
+                    <div class="bg-slate-900 rounded-xl p-5 border border-slate-700 text-slate-300 font-mono">
+                        Comienza ISR → Deshabilitar interrupciones → Código de la ISR → Habilitar interrupciones → Finaliza ISR
+                    </div>
+                </div>
+                <div class="mt-6 bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                    <h4 class="text-xl font-bold text-white mb-4">PIC Intel 8259A</h4>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        El árbitro paralelo del PC y compatibles atiende 8 solicitudes de interrupción (IRQ) y puede conectarse en cascada para incrementar la cantidad de interrupciones que se pueden arbitrar.
+                    </p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-slate-300">
+                            <thead>
+                                <tr class="border-b border-slate-600">
+                                    <th class="p-3">IRQ</th><th class="p-3">Vector</th><th class="p-3">Dispositivo</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-700">
+                                <tr><td class="p-3">IRQ0</td><td class="p-3">08h</td><td class="p-3">Pulso del reloj (18.2)</td></tr>
+                                <tr><td class="p-3">IRQ1</td><td class="p-3">09h</td><td class="p-3">Teclado</td></tr>
+                                <tr><td class="p-3">IRQ2</td><td class="p-3">0Ah</td><td class="p-3">Reservado para cascada</td></tr>
+                                <tr><td class="p-3">IRQ3</td><td class="p-3">0Bh</td><td class="p-3">COM2</td></tr>
+                                <tr><td class="p-3">IRQ4</td><td class="p-3">0Ch</td><td class="p-3">COM1</td></tr>
+                                <tr><td class="p-3">IRQ5</td><td class="p-3">0Dh</td><td class="p-3">Controlador de disco duro</td></tr>
+                                <tr><td class="p-3">IRQ6</td><td class="p-3">0Eh</td><td class="p-3">Controlador de disquete</td></tr>
+                                <tr><td class="p-3">IRQ7</td><td class="p-3">0Fh</td><td class="p-3">Controlador de impresora</td></tr>
+                                <tr><td class="p-3">IRQ8</td><td class="p-3">70h</td><td class="p-3">Reloj de tiempo real</td></tr>
+                                <tr><td class="p-3">IRQ9</td><td class="p-3">71h</td><td class="p-3">Redirección de cascada</td></tr>
+                                <tr><td class="p-3">IRQ10</td><td class="p-3">72h</td><td class="p-3">Libre</td></tr>
+                                <tr><td class="p-3">IRQ11</td><td class="p-3">73h</td><td class="p-3">Libre</td></tr>
+                                <tr><td class="p-3">IRQ12</td><td class="p-3">74h</td><td class="p-3">Dispositivo auxiliar</td></tr>
+                                <tr><td class="p-3">IRQ13</td><td class="p-3">75h</td><td class="p-3">Excepción FPU</td></tr>
+                                <tr><td class="p-3">IRQ14</td><td class="p-3">76h</td><td class="p-3">Libre</td></tr>
+                                <tr><td class="p-3">IRQ15</td><td class="p-3">77h</td><td class="p-3">Reservado</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DMA -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-truck-fast text-purple-500"></i> Acceso Directo a Memoria (DMA)
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Concepto y configuración</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li>El dispositivo puede leer o escribir directamente en memoria.</li>
+                            <li>Mejora la velocidad de transferencia y exime al CPU de la tarea de transferir los datos.</li>
+                            <li>El controlador DMA ejecuta un programa para transferir datos entre dispositivo y memoria.</li>
+                            <li>Puede tomar el control del bus; por ejemplo, mediante HOLD, que el CPU cede con HLDA.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Parámetros iniciales</h4>
+                        <ol class="text-slate-300 space-y-3 list-decimal list-inside">
+                            <li>Dirección de la operación: E/S → M o M → E/S.</li>
+                            <li>Dirección base del dispositivo de E/S.</li>
+                            <li>Posición inicial de memoria.</li>
+                            <li>Número de bytes que se van a transferir.</li>
+                            <li>Después de definidos los parámetros, el CPU se desentiende y el controlador realiza la transferencia.</li>
+                            <li>Al finalizar, el controlador DMA notifica el fin de la transferencia.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="mt-6 grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Modos y arbitraje</h4>
+                        <ul class="text-slate-300 space-y-2">
+                            <li>DMA dispone de varios modos de transferencia.</li>
+                            <li>Múltiples controladores DMA pueden requerir arbitraje del bus o <strong>bus mastering</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Intel 8237 DMAC</h4>
+                        <p class="text-slate-300 leading-relaxed">
+                            El proceso incluye registro de direcciones (Address Register), registro de conteo (Word Count Register), definición del modo y comienzo de la transferencia, terminando con una interrupción EOT.
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-6 bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                    <h4 class="text-xl font-bold text-white mb-4">Proceso DMA</h4>
+                    <div class="grid md:grid-cols-5 gap-3 text-slate-300">
+                        <div class="bg-slate-900 rounded-xl p-4 border border-slate-700"><strong>1.</strong> Escribir Address Register: dirección de memoria a leer/escribir.</div>
+                        <div class="bg-slate-900 rounded-xl p-4 border border-slate-700"><strong>2.</strong> Escribir Word Count Register: cantidad de palabras.</div>
+                        <div class="bg-slate-900 rounded-xl p-4 border border-slate-700"><strong>3.</strong> Definir modo: read/write, burst/cycle stealing, I/O-I/O, I/O-Memory, Memory-Memory, Memory search o I/O search.</div>
+                        <div class="bg-slate-900 rounded-xl p-4 border border-slate-700"><strong>4.</strong> Iniciar transferencia DMA.</div>
+                        <div class="bg-slate-900 rounded-xl p-4 border border-slate-700"><strong>5.</strong> Notificar fin mediante interrupción EOT.</div>
+                    </div>
+                </div>
+                <div class="mt-6 bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                    <h4 class="text-xl font-bold text-white mb-4">Transferencia DMA E/S → Memoria</h4>
+                    <ol class="text-slate-300 space-y-2 list-decimal list-inside">
+                        <li>El dispositivo de E/S envía una solicitud DMA.</li>
+                        <li>El DMAC activa la línea BR.</li>
+                        <li>El CPU responde por BG.</li>
+                        <li>El DMAC envía un DMA acknowledge al dispositivo.</li>
+                        <li>El dispositivo coloca una palabra en el bus de datos.</li>
+                        <li>El DMAC escribe la palabra en la dirección apuntada por el Address Register.</li>
+                        <li>Se decrementa el Word Count Register.</li>
+                        <li>Si el Word Count Register llega a 0, se genera la interrupción EOT.</li>
+                        <li>Si no llega a 0, se verifica la línea DMA Request y se repite hasta finalizar.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- CANALES E IOP -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-network-wired text-rose-500"></i> Canales y Procesadores de E/S
+                </h3>
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover mb-6">
+                    <p class="text-slate-300 leading-relaxed">
+                        Las arquitecturas de altas prestaciones pueden disponer de procesadores dedicados a las transferencias de E/S llamados <strong>Canales de E/S</strong>, considerados una evolución del DMA. Cuando estos canales disponen además de memoria local operativa para orquestar transferencias múltiples y complejas se denominan <strong>Procesadores de E/S (IOP)</strong>. Cada canal proporciona un bus de E/S capaz de atender uno o varios dispositivos y puede operar en un modo de transferencia.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Canal selector</h4>
+                        <ul class="text-slate-300 space-y-2">
+                            <li>Dedicado a un dispositivo a la vez.</li>
+                            <li>Permite transferencias de grandes bloques de datos.</li>
+                            <li>Adecuado para dispositivos de muy alta velocidad, como discos duros e impresoras de línea.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Canal multiplexor</h4>
+                        <ul class="text-slate-300 space-y-2">
+                            <li>Atiende muchos dispositivos de velocidad media y baja simultáneamente en esquema round-robin.</li>
+                            <li>Puede usar entresacado de bytes, byte a byte, o modo ráfaga por bloques.</li>
+                            <li>La transferencia comienza en entresacado de bytes; si termina el quantum inicial y aún quedan datos, se conmuta a modo ráfaga en un segundo quantum.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INTERFACES EXTERNAS -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-display text-orange-500"></i> Interfaces Externas Estándares
+                </h3>
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover mb-6">
+                    <p class="text-slate-300 leading-relaxed">
+                        Las interfaces externas estándares permiten interconectar nuevos dispositivos sin tener que implementar un módulo de E/S específico. Los estándares establecen las especificaciones que deben cumplirse y el diseñador solo necesita adquirir el hardware de interfaz del lado del dispositivo. La presentación menciona dispositivos apuntadores, dispositivos de comunicación, tarjetas de interfaz de red, instrumentos de medición y redes ad-hoc, entre otros.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Interfaces paralelas</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li>Transmiten <strong>n bits simultáneamente</strong>.</li>
+                            <li>Las líneas de transmisión pueden ser unidireccionales o bidireccionales.</li>
+                            <li>Además de las líneas de transferencia se requieren líneas de sincronización y control.</li>
+                            <li>La interfaz Centronics de 8 bits fue ampliamente usada en PC para comunicación con impresoras antes de la introducción masiva de USB.</li>
+                            <li>Su tasa de transferencia está limitada por posibles capacidades parásitas.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Interfaces seriales</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li>Transmiten un solo bit a la vez.</li>
+                            <li>Pueden operar en modo <strong>simplex</strong>, <strong>semiduplex</strong> o <strong>duplex</strong>.</li>
+                            <li><strong>TIA RS-232:</strong> puerto de comunicaciones asíncronas en la PC.</li>
+                            <li><strong>USB:</strong> bus serial universal con estándar plug-and-play, gran variedad de usos y mayores tasas de transferencia.</li>
+                            <li><strong>IEEE 1394 / FireWire:</strong> disponible en computadoras de alto desempeño para multimedia y mediante tarjetas de extensión; permite crear redes ad-hoc.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- SECCIÓN 2: QUIZ INTERACTIVO -->
+        <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl p-8 shadow-2xl">
+            <div class="text-center mb-10">
+                <div class="inline-block p-4 bg-rose-500/10 rounded-full mb-4">
+                    <i class="fa-solid fa-list-check text-4xl text-rose-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white">Evaluación Final: Unidad VII</h2>
+                <p class="text-slate-400 mt-2">Responde correctamente para concluir los módulos y regresar al menú principal.</p>
+            </div>
+            
+            <form id="quizForm" class="max-w-3xl mx-auto space-y-8">
+                
+                <!-- Pregunta 1 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-rose-500 mr-2">1.</span>¿Qué técnica permite copiar grandes bloques de datos desde un disco duro hacia la memoria principal sin pasar por el CPU?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-rose-500 transition">
+                            <input type="radio" name="p1" value="correcto" class="w-5 h-5 accent-rose-500">
+                            <span class="text-slate-300">A) Acceso Directo a Memoria (DMA)</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-rose-500 transition">
+                            <input type="radio" name="p1" value="incorrecto" class="w-5 h-5 accent-rose-500">
+                            <span class="text-slate-300">B) E/S Programada (Polling)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Contenedor de Resultados -->
+                <div id="resultado" class="hidden p-6 rounded-2xl text-center font-bold text-lg border"></div>
+
+                <!-- Botones de Acción -->
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-6 border-t border-slate-700">
+                    <button type="button" onclick="evaluarQuizLocal()" class="px-8 py-4 bg-gradient-to-r from-rose-600 to-orange-500 text-white font-bold rounded-xl shadow-lg hover:shadow-orange-500/25 hover:scale-105 transition-all">
+                        Validar Módulo <i class="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
+                    <!-- Apunta automáticamente al inicio al ser la última unidad -->
+                    <a href="Principal.html" id="btnSiguiente" class="pointer-events-none opacity-50 px-8 py-4 bg-slate-700 text-slate-300 font-bold rounded-xl transition-all flex items-center gap-2">
+                        Finalizar Curso <i class="fa-solid fa-house"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 text-center">
+        <p class="text-slate-400 text-sm">© 2026 Arquitectura de Computadoras II | Ingeniería en Computación - UNI</p>
+    </footer>
+
+    <!-- Lógica Autónoma del Quiz -->
+    <script>
+        function evaluarQuizLocal() {
+            const form = document.getElementById('quizForm');
+            const res = document.getElementById('resultado');
+            const btnSiguiente = document.getElementById('btnSiguiente');
+            let total = 1; // Ajustado a 1 pregunta
+            let aciertos = 0; 
+            let respondidas = 0;
+            
+            for(let i=1; i<=total; i++) {
+                let opciones = form.elements['p'+i];
+                let marcada = false;
+                for(let j=0; j<opciones.length; j++) {
+                    if(opciones[j].checked) {
+                        marcada = true;
+                        if(opciones[j].value === 'correcto') aciertos++;
+                    }
+                }
+                if(marcada) respondidas++;
+            }
+
+            res.classList.remove('hidden');
+
+            if(respondidas < total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-amber-900/30 text-amber-400 border-amber-500/50 mt-8';
+                res.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i> Por favor, responde la pregunta.';
+                return;
+            }
+            
+            // Activar botón siguiente
+            btnSiguiente.classList.remove('pointer-events-none', 'opacity-50', 'bg-slate-700', 'text-slate-300');
+            btnSiguiente.classList.add('bg-emerald-500', 'text-white', 'hover:bg-emerald-400', 'shadow-lg', 'shadow-emerald-500/30');
+            
+            if(aciertos === total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-emerald-900/30 text-emerald-400 border-emerald-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> ¡Correcto! El DMA exime a la CPU de las transferencias masivas. ¡Curso completado!`;
+            } else {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-rose-900/30 text-rose-400 border-rose-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Incorrecto. El Polling requiere que el CPU procese y mueva manualmente los datos. Sugerimos repasar.`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+/* Animaciones suaves y personalizadas */
+body { 
+    font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+    background-color: #f8fafc; /* Color claro por defecto, Tailwind manejará el oscuro */
+    color: #0f172a; 
+}
+.dark body {
+    background-color: #0b1120;
+    color: #f8fafc;
+}
+
+/* Efecto de cristal para la barra de navegación */
+.glass-nav { 
+    background: rgba(255, 255, 255, 0.85); 
+    backdrop-filter: blur(12px); 
+    border-bottom: 1px solid rgba(0,0,0,0.1); 
+}
+.dark .glass-nav {
+    background: rgba(15, 23, 42, 0.85);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Efectos hover para las tarjetas */
+.card-hover { 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+.card-hover:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.4); 
+    border-color: rgba(59, 130, 246, 0.5); 
+}
+.dark .card-hover:hover {
+    box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.4); 
+    border-color: rgba(6, 182, 212, 0.5);
+}
+
+/* Textos con gradiente */
+.gradient-text { 
+    background: linear-gradient(to right, #3b82f6, #06b6d4); 
+    -webkit-background-clip: text; 
+    color: transparent; 
+}
+.dark .gradient-text {
+    background: linear-gradient(to right, #38bdf8, #818cf8); 
+    -webkit-background-clip: text; 
+}
+
+/* Personalización de la barra de desplazamiento */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #e2e8f0; }
+::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+.dark ::-webkit-scrollbar-track { background: #0f172a; }
+.dark ::-webkit-scrollbar-thumb { background: #334155; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #475569; }

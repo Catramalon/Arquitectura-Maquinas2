@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad II - Arquitectura de Computadoras II</title>
+    
+    <!-- Tailwind CSS (Garantiza el diseño de tarjetas y cuadros) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0b1120',
+                        card: '#1e293b',
+                        primary: '#3b82f6',
+                        accent: '#06b6d4'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animaciones suaves y personalizadas */
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #0b1120; color: #f8fafc; }
+        .glass-nav { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.4); border-color: rgba(6, 182, 212, 0.5); }
+        .gradient-text { background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; color: transparent; }
+        
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary selection:text-white">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="glass-nav sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center py-4 gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-microchip text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white">ARQUITECTURA II</h1>
+                        <p class="text-xs text-slate-400">Universidad Nacional de Ingeniería</p>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul class="flex flex-wrap justify-center gap-2">
+                        <li><a href="Principal.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Inicio</a></li>
+                        <li><a href="Uni1.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad I</a></li>
+                        <!-- Botón Activo: Unidad II -->
+                        <li><a href="Uni2.html" class="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md">Unidad II</a></li>
+                        <li><a href="Uni3.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad III</a></li>
+                        <li><a href="Uni4.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad IV</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative py-16 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="max-w-5xl mx-auto px-4 relative z-10 text-center">
+            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold tracking-widest uppercase border border-blue-500/30">El Motor Computacional</span>
+            <h2 class="mt-6 text-4xl md:text-5xl font-extrabold text-white mb-6">Organización del <span class="gradient-text">CPU</span></h2>
+            <p class="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                Estudio detallado del procesador: el ciclo de instrucción (Fetch/Execute), los elementos estructurales (Datapath y Control) y el análisis de las arquitecturas de manejo de operandos.
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-6xl mx-auto px-4 pb-20 space-y-16">
+
+        <!-- SECCIÓN 1: FASES DEL CICLO DE INSTRUCCIÓN -->
+        <div>
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-arrows-spin text-blue-500"></i> 2.2 El Ciclo de Instrucción
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Tarjeta FETCH -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                    <i class="fa-solid fa-magnifying-glass text-4xl text-blue-400 mb-4"></i>
+                    <h4 class="text-xl font-bold text-white mb-3">Fase FETCH (Búsqueda)</h4>
+                    <ul class="text-sm text-slate-300 space-y-2 list-disc ml-5 marker:text-blue-500">
+                        <li><strong>Cargar instrucción:</strong> Extraer de la memoria apuntada por el PC hacia el IR.</li>
+                        <li><strong>Incrementar secuenciador:</strong> Un sumador (+1) ajusta el PC para apuntar a la próxima instrucción.</li>
+                        <li><strong>Interpretar:</strong> El Decoder evalúa el IR para determinar la operación.</li>
+                    </ul>
+                </div>
+
+                <!-- Tarjeta EXECUTE -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl"></div>
+                    <i class="fa-solid fa-bolt text-4xl text-cyan-400 mb-4"></i>
+                    <h4 class="text-xl font-bold text-white mb-3">Fase EXECUTE (Ejecución)</h4>
+                    <ul class="text-sm text-slate-300 space-y-2 list-disc ml-5 marker:text-cyan-500">
+                        <li><strong>Cargar operandos:</strong> Desde instrucción (inmediato), memoria o registros de propósito general (R0...Rn).</li>
+                        <li><strong>Ejecutar operación:</strong> En la ALU (Z ← X op Y).</li>
+                        <li><strong>Guardar y Verificar:</strong> Actualizar el PSW/FLAGS (Z, N, S, C, V) y atender si hay señales INT (Interrupciones).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: ELEMENTOS ESTRUCTURALES DEL CPU -->
+        <div>
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-memory text-cyan-400"></i> 2.3 & 2.4 Elementos para estructurar el Procesador
+            </h3>
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl p-8">
+                <p class="text-slate-300 mb-6 border-l-4 border-cyan-500 pl-4">El CPU se construye con electrónica digital (Flip-flops, MUX, Decoders) agrupados en dos secciones clave: <strong>Datapath</strong> y <strong>Control</strong>.</p>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-emerald-500/50 transition duration-300">
+                        <h4 class="text-lg font-bold text-emerald-400 mb-2">PC & IR</h4>
+                        <p class="text-xs text-slate-400">El <strong>PC (Program Counter)</strong> usa un Adder1 para secuenciar. El <strong>IR (Instruction Register)</strong> resguarda la instrucción actual para el Decoder.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-purple-500/50 transition duration-300">
+                        <h4 class="text-lg font-bold text-purple-400 mb-2">MAR & MDR</h4>
+                        <p class="text-xs text-slate-400">Interactúan con la Memoria Externa mediante el Bus de Direcciones (MAR) y el Bus de Datos (MDR).</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-blue-500/50 transition duration-300">
+                        <h4 class="text-lg font-bold text-blue-400 mb-2">ALU & GPR</h4>
+                        <p class="text-xs text-slate-400">El Órgano de cálculo (ALU) trabaja junto a los Registros de Propósito General (R0..Rn) para realizar aritmética lógica.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-amber-500/50 transition duration-300">
+                        <h4 class="text-lg font-bold text-amber-400 mb-2">PSW (Flags)</h4>
+                        <p class="text-xs text-slate-400">Almacena códigos y banderas de condición que actualizan el estado tras los cálculos (Z, N/S, C, V).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: ARQUITECTURAS DEL PROCESADOR -->
+        <div class="bg-gradient-to-r from-blue-900/40 to-cyan-900/40 border border-blue-500/30 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 text-blue-500/10">
+                <i class="fa-solid fa-layer-group text-9xl"></i>
+            </div>
+            
+            <h3 class="text-2xl md:text-3xl font-bold text-white mb-8 relative z-10 flex items-center gap-3">
+                <i class="fa-solid fa-microchip text-cyan-300"></i> 2.5 Arquitecturas del Procesador
+            </h3>
+            
+            <div class="grid lg:grid-cols-3 gap-6 relative z-10">
+                <!-- Arquitectura de Acumulador -->
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 rounded-xl p-6">
+                    <h4 class="text-lg font-bold text-white mb-2 pb-2 border-b border-slate-700">1 Dirección (Acumulador)</h4>
+                    <p class="text-xs text-slate-300 mb-4">Posee un solo registro central (Acc) en el CPU. Instrucciones definen un único operando.</p>
+                    <code class="block bg-slate-900 p-3 rounded font-mono text-xs text-blue-300 whitespace-pre">LOAD X  ; Acc ← M(X)
+ADD X   ; Acc ← Acc + M(X)
+STORE X ; M(X) ← Acc</code>
+                </div>
+
+                <!-- Arquitectura de Pila -->
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 rounded-xl p-6">
+                    <h4 class="text-lg font-bold text-white mb-2 pb-2 border-b border-slate-700">0 Direcciones (Pila)</h4>
+                    <p class="text-xs text-slate-300 mb-4">No almacena operandos en CPU, sino en memoria (empuje abajo). Usa <strong>SP</strong>, <strong>TOS</strong> y <strong>NOS</strong>.</p>
+                    <code class="block bg-slate-900 p-3 rounded font-mono text-xs text-cyan-300 whitespace-pre">PUSH X ; TOS ← M(X)
+POP Z  ; M(Z) ← TOS
+ADD    ; TOS' ← NOS + TOS</code>
+                </div>
+
+                <!-- Arquitectura de Registros -->
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 rounded-xl p-6">
+                    <h4 class="text-lg font-bold text-white mb-2 pb-2 border-b border-slate-700">2 y 3 Direcciones (Registros)</h4>
+                    <p class="text-xs text-slate-300 mb-4">Múltiples registros internos para operandos. La de 2D tiene lectura destructiva (fuente/destino).</p>
+                    <code class="block bg-slate-900 p-3 rounded font-mono text-xs text-emerald-300 whitespace-pre">; 2 Direcciones:
+ADD Rf, Rd     ; Rd ← Rf + Rd
+; 3 Direcciones:
+ADD Rd, Rf1, Rf2 ; Rd ← Rf1+Rf2</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: QUIZ INTERACTIVO -->
+        <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl p-8 shadow-2xl">
+            <div class="text-center mb-10">
+                <div class="inline-block p-4 bg-blue-500/10 rounded-full mb-4">
+                    <i class="fa-solid fa-list-check text-4xl text-blue-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white">Evaluación de la Unidad II</h2>
+                <p class="text-slate-400 mt-2">Valida tus conocimientos basados en el documento de estudio (Unidad2.pptx).</p>
+            </div>
+            
+            <form id="quizForm" class="max-w-3xl mx-auto space-y-8">
+                
+                <!-- Pregunta 1 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-blue-500 mr-2">1.</span>Durante la Fase FETCH, ¿qué elemento se utiliza para incrementar el secuenciador (PC) para que apunte a la siguiente instrucción?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p1" value="incorrecto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">El PSW (Banderas de Condición).</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p1" value="correcto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Un sumador lógico (Adder1).</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-blue-500 mr-2">2.</span>¿En qué arquitectura de procesador se utilizan las instrucciones de 0 direcciones (Ej: PUSH, POP) operando sobre los elementos TOS y NOS?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p2" value="correcto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Arquitectura de Pila.</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p2" value="incorrecto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Arquitectura de Acumulador.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-blue-500 mr-2">3.</span>En la arquitectura de Registros de 2 direcciones, al ejecutar `ADD Rf, Rd`, se dice que el operando destino "Rd" sufre de:</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p3" value="incorrecto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Resguardo en la pila temporal.</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p3" value="correcto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Lectura destructiva (es fuente y destino a la vez).</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Contenedor de Resultados -->
+                <div id="resultado" class="hidden p-6 rounded-2xl text-center font-bold text-lg border"></div>
+
+                <!-- Botones de Acción -->
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-6 border-t border-slate-700">
+                    <button type="button" onclick="evaluarQuizLocal()" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all">
+                        Validar Módulo <i class="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
+                    <!-- Apunta automáticamente a la Uni3 tras validarse -->
+                    <a href="Uni3.html" id="btnSiguiente" class="pointer-events-none opacity-50 px-8 py-4 bg-slate-700 text-slate-300 font-bold rounded-xl transition-all flex items-center gap-2">
+                        Siguiente: Unidad III <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 text-center mt-auto">
+        <p class="text-slate-400 text-sm">© 2026 Arquitectura de Computadoras II | Ingeniería en Computación - UNI</p>
+    </footer>
+
+    <!-- Lógica Autónoma del Quiz -->
+    <script>
+        function evaluarQuizLocal() {
+            const form = document.getElementById('quizForm');
+            const res = document.getElementById('resultado');
+            const btnSiguiente = document.getElementById('btnSiguiente');
+            let total = 3; 
+            let aciertos = 0; 
+            let respondidas = 0;
+            
+            for(let i=1; i<=total; i++) {
+                let opciones = form.elements['p'+i];
+                let marcada = false;
+                for(let j=0; j<opciones.length; j++) {
+                    if(opciones[j].checked) {
+                        marcada = true;
+                        if(opciones[j].value === 'correcto') aciertos++;
+                    }
+                }
+                if(marcada) respondidas++;
+            }
+
+            res.classList.remove('hidden');
+
+            if(respondidas < total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-amber-900/30 text-amber-400 border-amber-500/50 mt-8';
+                res.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i> Por favor, responde todas las preguntas.';
+                return;
+            }
+            
+            // Activar botón siguiente
+            btnSiguiente.classList.remove('pointer-events-none', 'opacity-50', 'bg-slate-700', 'text-slate-300');
+            btnSiguiente.classList.add('bg-emerald-500', 'text-white', 'hover:bg-emerald-400', 'shadow-lg', 'shadow-emerald-500/30');
+            
+            if(aciertos === total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-emerald-900/30 text-emerald-400 border-emerald-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> ¡Excelente! ${aciertos}/${total} correctas. Datapath y Control dominados.`;
+            } else {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-rose-900/30 text-rose-400 border-rose-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Obtuviste ${aciertos}/${total}. Revisa los registros y sus arquitecturas.`;
+            }
+        }
+    </script>
+</body>
+</html>

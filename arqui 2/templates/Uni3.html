@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad III - Arquitectura de Computadoras II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0b1120',
+                        card: '#1e293b',
+                        primary: '#3b82f6',
+                        accent: '#06b6d4'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animaciones suaves y personalizadas */
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #0b1120; color: #f8fafc; }
+        .glass-nav { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.4); border-color: rgba(6, 182, 212, 0.5); }
+        .gradient-text { background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; color: transparent; }
+        
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary selection:text-white">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="glass-nav sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center py-4 gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-microchip text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white">ARQUITECTURA II</h1>
+                        <p class="text-xs text-slate-400">Universidad Nacional de Ingeniería</p>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul class="flex flex-wrap justify-center gap-2">
+                        <li><a href="Principal.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Inicio</a></li>
+                        <li><a href="Uni1.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad I</a></li>
+                        <li><a href="Uni2.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad II</a></li>
+                        <!-- Botón Activo: Unidad III -->
+                        <li><a href="Uni3.html" class="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md">Unidad III</a></li>
+                        <li><a href="Uni4.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad IV</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative py-16 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="max-w-5xl mx-auto px-4 relative z-10 text-center">
+            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold tracking-widest uppercase border border-blue-500/30">Lenguaje Máquina</span>
+            <h2 class="mt-6 text-4xl md:text-5xl font-extrabold text-white mb-6">Conjunto de <span class="gradient-text">Instrucciones</span></h2>
+            <p class="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                El conjunto o repertorio de instrucciones es el principal atributo de la arquitectura. Define las operaciones, la codificación binaria y la estructura de direccionamiento mediante las cuales el programador gobierna al procesador.
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-6xl mx-auto px-4 pb-20 space-y-16">
+
+        <!-- SECCIÓN 1: DISEÑO DEL ISA -->
+        <div>
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-layer-group text-blue-500"></i> Características del Conjunto de Instrucciones
+            </h3>
+            <p class="text-slate-300 mb-6 border-l-4 border-blue-500 pl-4">El diseño de una instrucción se conforma de dos bloques (Identificación u Operación, y Direccionamiento) y debe cumplir 3 principios fundamentales:</p>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Completitud -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                    <i class="fa-solid fa-check-double text-3xl text-emerald-400 mb-4"></i>
+                    <h4 class="text-lg font-bold text-white mb-2">Completitud</h4>
+                    <p class="text-sm text-slate-400">Debe permitir ejecutar todas y cada una de las operaciones que el procesador es capaz de realizar físicamente.</p>
+                </div>
+                <!-- Ortogonalidad -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                    <i class="fa-solid fa-border-all text-3xl text-cyan-400 mb-4"></i>
+                    <h4 class="text-lg font-bold text-white mb-2">Ortogonalidad</h4>
+                    <p class="text-sm text-slate-400">Debe permitir que todas las operaciones se realicen independientemente con todos los tipos de datos aplicables.</p>
+                </div>
+                <!-- Eficiencia -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                    <i class="fa-solid fa-gauge-high text-3xl text-blue-400 mb-4"></i>
+                    <h4 class="text-lg font-bold text-white mb-2">Eficiencia</h4>
+                    <p class="text-sm text-slate-400">Debe evitar redundancias. Si una operación ya puede realizarse con la instrucción X, es ineficiente crear una instrucción Y paralela.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: CODIFICACIÓN DE LA INSTRUCCIÓN -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl p-8">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-barcode text-purple-400"></i> Codificación de la Operación
+            </h3>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-slate-900 border border-slate-700 p-5 rounded-xl hover:border-purple-500/50 transition">
+                    <strong class="text-purple-400 block mb-2">Código de bloque fijo</strong>
+                    <span class="text-sm text-slate-400">Emplea una cantidad fija de bits para codificar todas las operaciones. Fácil de implementar, pero menos optimizado si hay muchas instrucciones. Se calcula con: <code>L(co) = ⌈log2(i)⌉</code></span>
+                </div>
+                <div class="bg-slate-900 border border-slate-700 p-5 rounded-xl hover:border-purple-500/50 transition">
+                    <strong class="text-purple-400 block mb-2">Código de bloque extendido</strong>
+                    <span class="text-sm text-slate-400">Permite mantener fijo el tamaño del formato general, extendiendo el código de operación (CO) sobre los bits de los campos de operandos que no se utilizan (p.e. en instrucciones de 1 o 0 direcciones).</span>
+                </div>
+                <div class="bg-slate-900 border border-slate-700 p-5 rounded-xl hover:border-purple-500/50 transition">
+                    <strong class="text-purple-400 block mb-2">Técnica de Huffman</strong>
+                    <span class="text-sm text-slate-400">Asigna los códigos de operación más cortos a las instrucciones que estadísticamente se ejecutan con mayor frecuencia. Tiene redundancia de 0 (R = L_A - L_O), optimizando el uso de bits en arquitectura.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: MODOS DE DIRECCIONAMIENTO -->
+        <div class="bg-gradient-to-r from-blue-900/40 to-cyan-900/40 border border-blue-500/30 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute -right-20 -top-20 text-blue-500/10">
+                <i class="fa-solid fa-map-location-dot text-9xl"></i>
+            </div>
+            
+            <h3 class="text-2xl md:text-3xl font-bold text-white mb-4 relative z-10 flex items-center gap-3">
+                14 Modos de Direccionamiento
+            </h3>
+            <p class="text-slate-300 mb-8 max-w-4xl relative z-10 text-sm leading-relaxed">
+                El modo de direccionamiento define la forma de determinar la <strong>Dirección Efectiva (EA)</strong> del operando y cómo obtenerlo usando Valores Numéricos (N), Índices de Registros (R) o Variables de Memoria (M).
+            </p>
+
+            <!-- Categoría 1: Básicos Directos -->
+            <h4 class="text-lg font-bold text-cyan-300 mb-4 relative z-10 border-b border-cyan-500/30 pb-2">Modos Básicos (Directos e Indirectos)</h4>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10 mb-8">
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-emerald-400 block mb-1">A. Inmediato</strong>
+                    <p class="text-xs text-slate-300">Operando definido directamente. <em>Ej: MOV R5, 5</em></p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-emerald-400 block mb-1">B. Directo o Registro</strong>
+                    <p class="text-xs text-slate-300">El operando está en el registro. <em>Ej: MOV R5, R7</em></p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-emerald-400 block mb-1">C. Absoluto</strong>
+                    <p class="text-xs text-slate-300">El operando está en una variable de Memoria. <em>Ej: MOV R5, (1000)</em></p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-emerald-400 block mb-1">D. Indirecto de Registro</strong>
+                    <p class="text-xs text-slate-300">Registro usado como puntero. <em>Ej: MOV R5, (R3)</em></p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-emerald-400 block mb-1">E. Indirecto de Memoria</strong>
+                    <p class="text-xs text-slate-300">Variable de memoria usada como puntero a otra. <em>Ej: MOV R5, (A)</em></p>
+                </div>
+            </div>
+
+            <!-- Categoría 2: Básicos con Incremento -->
+            <h4 class="text-lg font-bold text-cyan-300 mb-4 relative z-10 border-b border-cyan-500/30 pb-2">Modos Básicos (Con Auto-Actualización)</h4>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10 mb-8">
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-blue-400 block mb-1">F. Autoincremento</strong>
+                    <p class="text-xs text-slate-300">El puntero se incrementa <strong>después</strong> del acceso. <em>MOV R5, (R3)+</em></p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-blue-400 block mb-1">G. Autodecremento</strong>
+                    <p class="text-xs text-slate-300">El puntero se decrementa <strong>antes</strong> del acceso. <em>MOV R5, -(R3)</em></p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-blue-400 block mb-1">H. Autoincremento Indir.</strong>
+                    <p class="text-xs text-slate-300">Puntero a arreglo de punteros que se incrementa. <em>MOV R5, ((R3)+)</em></p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-blue-400 block mb-1">I. Autodecremento Indir.</strong>
+                    <p class="text-xs text-slate-300">Puntero a arreglo de punteros que se decrementa. <em>MOV R5, (-(R3))</em></p>
+                </div>
+            </div>
+
+            <!-- Categoría 3: Compuestos y Desplazados -->
+            <h4 class="text-lg font-bold text-cyan-300 mb-4 relative z-10 border-b border-cyan-500/30 pb-2">Modos Compuestos (Desplazamientos y Cálculo Matemático)</h4>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10">
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-purple-400 block mb-1">J. Índice o Indizado</strong>
+                    <p class="text-xs text-slate-300">Dirección Base + Registro Índice. <em>MOV R5, 1000(R3)</em></p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-purple-400 block mb-1">K. Indirecto de Índice</strong>
+                    <p class="text-xs text-slate-300">Igual al Índice, pero referenciando a memoria. <em>MOV R5, (1000(R3))</em></p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-purple-400 block mb-1">L. Base-Desplazamiento</strong>
+                    <p class="text-xs text-slate-300">Registro Base + Valor Numérico de Desplazamiento. <em>MOV R5, R7(10)</em></p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover">
+                    <strong class="text-purple-400 block mb-1">M. Base-Desplaz. Escalado</strong>
+                    <p class="text-xs text-slate-300">Base + Índice multiplicado por constante de tamaño. <em>MOV R5, 1000(R3*2)</em></p>
+                </div>
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-600 p-4 rounded-xl card-hover lg:col-span-2">
+                    <strong class="text-purple-400 block mb-1">N. Relativo (Al PC)</strong>
+                    <p class="text-xs text-slate-300">La base siempre es un registro (generalmente el PC) y el desplazamiento controla saltos relativos. Fundamental en instrucciones Jump/Branch.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- INFORMACIÓN ADICIONAL DE LAS DIAPOSITIVAS: UNIDAD III -->
+        <div class="space-y-10">
+            <div class="text-center">
+                <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 text-sm font-bold tracking-widest uppercase border border-cyan-500/30">Contenido de las diapositivas</span>
+                <h3 class="mt-4 text-3xl font-bold text-white">Diseño del Conjunto de Instrucciones</h3>
+                <p class="text-slate-400 mt-2">Información complementaria de la Unidad 3, organizada a partir de las diapositivas de estudio.</p>
+            </div>
+
+            <!-- Conjunto de instrucciones e instrucciones -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-microchip text-blue-400"></i> Conjunto de Instrucciones e Instrucciones
+                </h3>
+                <div class="space-y-4 text-slate-300">
+                    <p>El <strong class="text-white">conjunto de instrucciones</strong>, también denominado repertorio de instrucciones y representado como <strong class="text-cyan-300">I</strong>, está formado por todas las instrucciones de un procesador específico. Es el principal atributo de una arquitectura y habilita al programador para interactuar con el procesador.</p>
+                    <p>Una <strong class="text-white">instrucción</strong> es un tipo de dato especial que se almacena en memoria como una tira de bits y ordena al procesador realizar una de sus operaciones. Proporciona al procesador toda la información requerida para ejecutarla, principalmente la <strong>operación</strong> y los <strong>operandos</strong>.</p>
+                </div>
+            </div>
+
+            <!-- Tipos de instrucciones -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-list text-purple-400"></i> Tipos de Instrucciones
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-cyan-300 mb-3">Propósito General</h4>
+                        <ul class="text-sm text-slate-300 space-y-2">
+                            <li><strong>Transferencia:</strong> mover datos entre operandos. <code>MOVE, LOAD, STORE</code></li>
+                            <li><strong>Aritméticas:</strong> operaciones aritméticas. <code>ADD, SUB, DIV, MUL, INC, DEC</code></li>
+                            <li><strong>Lógicas y manejo de bits:</strong> operaciones lógicas y corrimiento de bits. <code>AND, OR, NOT, RSH, LROT</code></li>
+                            <li><strong>Comparación:</strong> compara valores de operandos y sirve de base para los saltos. <code>CMP</code></li>
+                            <li><strong>Control de flujo:</strong> modifica la secuencia del programa para selección, ciclos y llamadas a subrutinas. <code>JP, JR, BRN, CALL, RET</code></li>
+                            <li><strong>Entrada / Salida:</strong> acceso a direcciones del espacio de E/S. <code>IN, OUT</code></li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-cyan-300 mb-3">Propósito Específico y Privilegiadas</h4>
+                        <ul class="text-sm text-slate-300 space-y-2">
+                            <li><strong>Tratamiento de cadenas:</strong> manipulación de cadenas. <code>COMSTR, CATSTR</code></li>
+                            <li><strong>Polinomios, funciones científicas, vectores y matrices:</strong> aceleran mediante hardware aplicaciones científicas; también contemplan datos especiales como vectores, listas y matrices. <code>EVALUATEPOL, VADD</code></li>
+                            <li><strong>Interrupciones y excepciones:</strong> atención de dispositivos de E/S y tratamiento de condiciones anormales del procesador. <code>INT, TRAP</code></li>
+                            <li><strong>Control del sistema:</strong> protección de memoria, detención, reinicio o detención del ordenador, entre otras funciones. <code>HALT, NOP</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formato de instrucción -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-table-columns text-blue-400"></i> Formato de Instrucción
+                </h3>
+                <p class="text-slate-300 mb-5">El formato de instrucción es la estructura interna de la cadena de bits dentro de una instrucción. Se organiza en bloques, y cada bloque en campos de bits.</p>
+                <div class="grid md:grid-cols-2 gap-5">
+                    <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                        <h4 class="font-bold text-blue-300 mb-2">Bloque de identificación</h4>
+                        <p class="text-sm text-slate-400">Contiene un solo campo: el <strong>código de operación (CO)</strong>, que indica qué operación se debe realizar.</p>
+                    </div>
+                    <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                        <h4 class="font-bold text-cyan-300 mb-2">Bloque de direccionamiento</h4>
+                        <p class="text-sm text-slate-400">Contiene de cero a más campos de dirección u operando. El modo de direccionamiento determina dónde está y cómo obtener el operando, es decir, la <strong>dirección efectiva (EA)</strong>.</p>
+                    </div>
+                </div>
+                <div class="mt-5 bg-slate-900 border border-slate-700 rounded-xl p-5 text-sm text-slate-300">
+                    <p><strong class="text-white">Código de operación:</strong> indica la operación.</p>
+                    <p><strong class="text-white">Campo de dirección u operando:</strong> indica con qué operandos se realizará.</p>
+                    <p><strong class="text-white">Valores:</strong> información necesaria para calcular la EA, como registro <strong>R</strong>, memoria <strong>M</strong> o valor numérico <strong>N</strong>.</p>
+                    <p class="mt-2"><strong class="text-white">Formato fijo:</strong> todas las instrucciones tienen el mismo tamaño, por ejemplo 32 bits.</p>
+                    <p><strong class="text-white">Formato variable:</strong> las instrucciones cambian de tamaño según la operación o la cantidad y tipos de operandos.</p>
+                    <p><strong class="text-white">L(F):</strong> tamaño en bits del formato de instrucción.</p>
+                </div>
+            </div>
+
+            <!-- Codificación fija y ejemplos -->
+            <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/30 rounded-3xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-barcode text-purple-300"></i> Codificación de la Operación
+                </h3>
+                <p class="text-slate-300 mb-5">El código de operación identifica la operación a realizar. Una opción es asignar un número consecutivo a cada instrucción y expresar ese número en binario.</p>
+                <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-5 mb-6">
+                    <p class="text-sm text-slate-300 mb-3"><strong>Ejemplo de arquitectura mínima con R2:</strong> 8 instrucciones:</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm text-slate-300">
+                        <span>MOV = 000</span><span>AND = 001</span><span>ADD = 010</span><span>SUB = 011</span>
+                        <span>DIV = 100</span><span>MUL = 101</span><span>JGZ = 110</span><span>JEZ = 111</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-3">Al haber 8 instrucciones se requieren 3 bits para el CO.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-5">
+                    <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-purple-300 mb-2">Código de Bloque Fijo</h4>
+                        <p class="text-sm text-slate-400">Usa una cantidad fija de bits para codificar la operación. Es simple y fácil de implementar mediante un decodificador. Si <strong>i = n(I)</strong>, entonces:</p>
+                        <p class="text-center text-white font-bold mt-3"><code>L(CO) = ⌈log<sub>2</sub>(i)⌉</code></p>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-purple-300 mb-2">Código de Bloque Extendido</h4>
+                        <p class="text-sm text-slate-400">Extiende el CO sobre los bits de campos de operandos que no se usan en instrucciones de varias direcciones. Permite mantener fijo el tamaño del formato y crear grupos con diferentes longitudes de CO.</p>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-purple-300 mb-2">Técnica de Huffman</h4>
+                        <p class="text-sm text-slate-400">Código variable basado en la teoría estadística de las comunicaciones. Asigna los códigos más cortos a las operaciones más frecuentes y requiere conocer su frecuencia relativa.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejemplos de bloque fijo y extendido -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-calculator text-emerald-400"></i> Ejemplos de Codificación
+                </h3>
+                <div class="space-y-6">
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-300 mb-2">30 instrucciones</h4>
+                        <p class="text-sm text-slate-300">Si hay 10 instrucciones de 3 direcciones, 10 de 2 direcciones, 5 de 1 dirección y 5 de 0 direcciones, hay 30 instrucciones en total:</p>
+                        <p class="text-white font-bold mt-2"><code>L(CO) = ⌈log<sub>2</sub>(30)⌉ = 5 bits</code></p>
+                        <p class="text-xs text-slate-400 mt-2">La potencia de 2 inmediata superior es 32, por lo que sobran dos códigos que deben tratarse como excepciones de código inválido.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-300 mb-2">15 instrucciones de 2 direcciones en 16 bits</h4>
+                        <p class="text-sm text-slate-300">Con dos campos de dirección de 6 bits, los operandos consumen 12 bits y quedan 4 bits para el CO. Como <code>⌈log<sub>2</sub>(15)⌉ = 4</code>, el formato encaja, quedando una combinación como excepción.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-300 mb-2">Extensión del formato</h4>
+                        <p class="text-sm text-slate-300">Si al ejemplo anterior se agregan 30 instrucciones de 1 operando, se tienen 45 instrucciones y <code>L(CO)=6</code>. No caben en 16 bits y se requerirían 18 bits; al trabajar con memorias direccionables por byte, el formato podría extenderse a 24 bits, produciendo desperdicio de bits y más ciclos para traer la instrucción.</p>
+                        <p class="text-sm text-slate-300 mt-2">El código de bloque extendido aprovecha los bits del campo de operando que no se utilizan. Para las 15 instrucciones de 2 operandos se mantienen 4 bits de CO; las 30 instrucciones de 1 operando pueden utilizar los 6 bits libres del segundo operando, dando un CO extendido de <strong>4 + 6 = 10 bits</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Huffman -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-diagram-project text-cyan-400"></i> Técnica de Huffman
+                </h3>
+                <p class="text-slate-300 mb-5">Huffman busca optimizar los bits empleados en el código de operación asignando códigos cortos a las instrucciones con mayor frecuencia relativa.</p>
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full text-sm text-left">
+                        <thead>
+                            <tr class="border-b border-slate-600 text-cyan-300">
+                                <th class="py-3 px-3">Instrucción</th>
+                                <th class="py-3 px-3">Frecuencia relativa</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300">
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">LOAD</td><td class="py-2 px-3">1/4</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">STORE</td><td class="py-2 px-3">1/4</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">ADD</td><td class="py-2 px-3">1/8</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">AND</td><td class="py-2 px-3">1/8</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">NOT</td><td class="py-2 px-3">1/16</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">RSHIFT</td><td class="py-2 px-3">1/16</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">JUMP</td><td class="py-2 px-3">1/16</td></tr>
+                            <tr><td class="py-2 px-3">HALT</td><td class="py-2 px-3">1/16</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="grid md:grid-cols-2 gap-5">
+                    <div class="bg-slate-900 rounded-xl border border-slate-700 p-5">
+                        <h4 class="font-bold text-cyan-300 mb-3">Pasos del algoritmo</h4>
+                        <ol class="list-decimal list-inside text-sm text-slate-300 space-y-2">
+                            <li>Ordenar las operaciones de mayor a menor por frecuencia relativa.</li>
+                            <li>Crear un nodo del árbol para cada operación con su frecuencia como peso.</li>
+                            <li>Asociar los nodos de menor peso mediante suma y repetir hasta obtener la raíz.</li>
+                            <li>Etiquetar con 0 las ramas derechas y con 1 las ramas izquierdas.</li>
+                            <li>Recorrer el árbol desde la raíz hasta cada hoja y yuxtaponer las etiquetas para obtener el código.</li>
+                        </ol>
+                    </div>
+                    <div class="bg-slate-900 rounded-xl border border-slate-700 p-5">
+                        <h4 class="font-bold text-cyan-300 mb-3">Códigos del ejemplo</h4>
+                        <div class="grid grid-cols-2 gap-2 text-sm text-slate-300">
+                            <span>LOAD = <strong>11</strong></span><span>STORE = <strong>10</strong></span>
+                            <span>ADD = <strong>011</strong></span><span>AND = <strong>010</strong></span>
+                            <span>NOT = <strong>0011</strong></span><span>RSHIFT = <strong>0010</strong></span>
+                            <span>JUMP = <strong>0001</strong></span><span>HALT = <strong>0000</strong></span>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-4">Longitud media del ejemplo: <strong class="text-white">2.75 bits</strong>. En bloque fijo serían 3 bits; el óptimo calculado también es 2.75 bits, por lo que la redundancia es 0.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campos de dirección -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-location-crosshairs text-blue-400"></i> Campos de Dirección
+                </h3>
+                <p class="text-slate-300 mb-5">Los campos de dirección explicitan los operandos con los que la instrucción realizará la operación. El operando puede estar definido inmediatamente en la instrucción, directamente en un registro de propósito general o en memoria.</p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                        <strong class="text-emerald-300">Número (N)</strong>
+                        <p class="text-sm text-slate-400 mt-1">El valor es el operando o un desplazamiento para calcularlo.</p>
+                    </div>
+                    <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                        <strong class="text-blue-300">Registro (R)</strong>
+                        <p class="text-sm text-slate-400 mt-1">El valor representa el índice o número de registro.</p>
+                    </div>
+                    <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                        <strong class="text-purple-300">Memoria (M)</strong>
+                        <p class="text-sm text-slate-400 mt-1">Los valores permiten calcular la dirección efectiva.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalle de modos básicos -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-route text-cyan-400"></i> Modos Básicos de Direccionamiento: Detalle
+                </h3>
+                <div class="grid md:grid-cols-2 gap-5">
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-300">A. Inmediato</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, 5</code> → <code>R5 ← 5</code>.</p>
+                        <p class="text-xs text-slate-400 mt-2">Ventaja: obtención sencilla. Desventaja: solo permite operandos fuente y valores constantes. Uso: inicialización de variables y declaración de constantes.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-300">B. Directo o Registro</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, R7</code>. El operando está en un registro del CPU.</p>
+                        <p class="text-xs text-slate-400 mt-2">Ventajas: rapidez, operando dentro del procesador y pocos bits para codificar registros. Desventaja: intercambio continuo con memoria si hay pocos registros. Uso: datos de uso frecuente.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-300">C. Absoluto</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, (1000)</code> → <code>R5 ← M(1000)</code>; también <code>MOV R5, A</code>.</p>
+                        <p class="text-xs text-slate-400 mt-2">Ventaja: acceso a cualquier dirección de memoria. Desventajas: requiere muchos bits y soporte especial para programas portables. Uso: saltos absolutos, rutinas fijas, paso de parámetros y puertos de E/S.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-300">D. Indirecto de Registro</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, (R3)</code> → <code>R5 ← M(R3)</code>. El registro se usa como puntero.</p>
+                        <p class="text-xs text-slate-400 mt-2">Ventajas: acceso mediante registro y flexibilidad para punteros, vectores y estructuras. Desventajas: hay que cargar la dirección al registro y se limita el uso de registros. Uso: datos estructurados y paso de parámetros.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-300">E. Indirecto de Memoria</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, (A)</code> → <code>R5 ← M(M(A))</code>.</p>
+                        <p class="text-xs text-slate-400 mt-2">Permite implementar punteros en memoria, pero requiere múltiples accesos. Uso poco frecuente: punteros a datos estructurados y selector de variables.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-300">F. Autoincremento</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, (R3)+</code> → <code>R5 ← M(R3)</code>, <code>R3 ← [R3]+1</code>.</p>
+                        <p class="text-xs text-slate-400 mt-2">Incrementa el registro después del acceso. Es eficiente para elementos consecutivos de arreglos y permite recorrerlos de inicio a fin.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-300">G. Autodecremento</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, -(R3)</code> → <code>R3 ← [R3]-1</code>, <code>R5 ← M(R3)</code>.</p>
+                        <p class="text-xs text-slate-400 mt-2">Decrementa el registro antes del acceso. Facilita recorrer arreglos desde el final hacia el inicio.</p>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-300">H e I. Auto-incremento y auto-decremento indirectos</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, ((R3)+)</code> y <code>MOV R5, (-(R3))</code>.</p>
+                        <p class="text-xs text-slate-400 mt-2">Actúan como punteros a arreglos de punteros. Agilizan su recorrido, pero requieren múltiples accesos a memoria y su uso es poco frecuente.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modos compuestos -->
+            <div class="bg-gradient-to-r from-blue-900/40 to-cyan-900/40 border border-blue-500/30 rounded-3xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-arrows-to-circle text-blue-300"></i> Modos Compuestos o Desplazados
+                </h3>
+                <p class="text-slate-300 mb-6">Usan más de un valor y permiten un direccionamiento dinámico y flexible. La dirección efectiva se obtiene mediante sumas entre registros y valores numéricos. Son útiles para recorrer estructuras de datos. Algunos incluyen escalación, donde un valor se multiplica por una constante que representa el tamaño del elemento.</p>
+                <div class="grid md:grid-cols-2 gap-5">
+                    <div class="bg-slate-800/80 border border-slate-600 rounded-xl p-5">
+                        <h4 class="font-bold text-purple-300">J. Índice o Indizado</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, 1000(R3)</code> → <code>R5 ← M(1000 + [R3])</code>.</p>
+                        <p class="text-xs text-slate-400 mt-2">Combina una dirección o registro base con un registro índice. Es versátil para acceder a arreglos y estructuras; requiere cargar y actualizar el índice.</p>
+                    </div>
+                    <div class="bg-slate-800/80 border border-slate-600 rounded-xl p-5">
+                        <h4 class="font-bold text-purple-300">K. Indirecto de Índice</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, (1000(R3))</code> → <code>R5 ← M(M(1000 + [R3]))</code>.</p>
+                        <p class="text-xs text-slate-400 mt-2">Es el indirecto del modo índice. Es útil para arreglos de punteros, pero requiere múltiples accesos a memoria.</p>
+                    </div>
+                    <div class="bg-slate-800/80 border border-slate-600 rounded-xl p-5">
+                        <h4 class="font-bold text-purple-300">L. Base-Desplazamiento</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, R7(10)</code> → <code>R5 ← M([R7] + 10)</code>.</p>
+                        <p class="text-xs text-slate-400 mt-2">Suma una base y un valor de desplazamiento. Permite desplazarse en un área de memoria tomando la dirección base como referencia. Uso: estructuras de datos y memoria segmentada, como en arquitecturas x86 de 16 bits.</p>
+                    </div>
+                    <div class="bg-slate-800/80 border border-slate-600 rounded-xl p-5">
+                        <h4 class="font-bold text-purple-300">M. Base-Desplazamiento Escalado</h4>
+                        <p class="text-sm text-slate-300 mt-2"><code>MOV R5, 1000(R3*2)</code> → <code>R5 ← M(1000 + [R3]*2)</code>.</p>
+                        <p class="text-xs text-slate-400 mt-2">Suma la base con un índice multiplicado por una constante. Elimina la necesidad de calcular el índice por separado, aunque exige mayor control del programador. Uso: arreglos de distintos tipos de datos en memorias direccionables por byte.</p>
+                    </div>
+                    <div class="bg-slate-800/80 border border-slate-600 rounded-xl p-5 md:col-span-2">
+                        <h4 class="font-bold text-purple-300">N. Relativo</h4>
+                        <p class="text-sm text-slate-300 mt-2">Es una variante del modo base-desplazamiento. La base es siempre un registro y el desplazamiento puede ser un valor o un cálculo registro-valor. El modo más utilizado es el <strong>relativo al PC</strong>, empleado en instrucciones de salto.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Codificación de operandos y PDP-11 -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-code text-amber-400"></i> Codificación del Operando
+                </h3>
+                <p class="text-slate-300 mb-5">La codificación del operando es similar a la del CO: se codifican el modo de direccionamiento y los valores en binario. Se prefiere la técnica de bloque fijo para los campos porque es sencilla y los modos de direccionamiento suelen ser pocos.</p>
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 mb-6">
+                    <h4 class="font-bold text-amber-300 mb-2">Bit de indirecto en PDP-11</h4>
+                    <p class="text-sm text-slate-300">La arquitectura PDP-11 puede estructurar internamente los bits de codificación del modo. Un ejemplo es el <strong>bit de indirecto</strong>, que diferencia el modo directo de su correspondiente indirecto usando un solo bit, el LSB del campo de MD. Si el bit es 1, el modo es indirecto. Por ejemplo, si <code>000</code> representa Directo de Registro, <code>001</code> puede representar Indirecto de Registro. Esta técnica simplifica la implementación de la Unidad de Control.</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-600 text-cyan-300">
+                                <th class="text-left py-3 px-3">Modo de direccionamiento</th>
+                                <th class="text-left py-3 px-3">Base MD</th>
+                                <th class="text-left py-3 px-3">Indirecto</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300">
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">Registro</td><td class="py-2 px-3">00</td><td class="py-2 px-3">0</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">Registro Indirecto</td><td class="py-2 px-3">00</td><td class="py-2 px-3">1</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">AutoIncremento</td><td class="py-2 px-3">01</td><td class="py-2 px-3">0</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">AutoIncremento indirecto</td><td class="py-2 px-3">01</td><td class="py-2 px-3">1</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">Autodecremento</td><td class="py-2 px-3">10</td><td class="py-2 px-3">0</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">Autodecremento Indirecto</td><td class="py-2 px-3">10</td><td class="py-2 px-3">1</td></tr>
+                            <tr class="border-b border-slate-700"><td class="py-2 px-3">Índice</td><td class="py-2 px-3">11</td><td class="py-2 px-3">0</td></tr>
+                            <tr><td class="py-2 px-3">Índice Indirecto</td><td class="py-2 px-3">11</td><td class="py-2 px-3">1</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Ejemplo PDP-11 -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-puzzle-piece text-rose-400"></i> Ejemplo de Codificación de Instrucción: Formato R de PDP-11
+                </h3>
+                <p class="text-slate-300 mb-5">El formato R se emplea para modos basados en registro. La sintaxis indicada es <code>OP F, D</code>. Para el ejemplo <code>ADD (R5), R3</code>, se supone <code>CO(ADD) = 0010</code>.</p>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 text-center">
+                        <span class="text-xs text-slate-400 block">CO</span><strong class="text-white">0010</strong><span class="text-xs text-slate-500 block">4 bits</span>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 text-center">
+                        <span class="text-xs text-slate-400 block">Rf</span><strong class="text-white">R5 = 101</strong><span class="text-xs text-slate-500 block">6 bits de operando fuente con MD</span>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 text-center">
+                        <span class="text-xs text-slate-400 block">MD fuente</span><strong class="text-white">001</strong><span class="text-xs text-slate-500 block">Registro indirecto</span>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 text-center">
+                        <span class="text-xs text-slate-400 block">Rd</span><strong class="text-white">R3 = 011</strong><span class="text-xs text-slate-500 block">MD destino = 000</span>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-400">En el ejemplo, el operando fuente <code>(R5)</code> utiliza MD indirecto de registro (<code>001</code>) y el operando destino <code>R3</code> utiliza MD directo de registro (<code>000</code>).</p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: QUIZ INTERACTIVO -->
+        <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl p-8 shadow-2xl">
+            <div class="text-center mb-10">
+                <div class="inline-block p-4 bg-blue-500/10 rounded-full mb-4">
+                    <i class="fa-solid fa-list-check text-4xl text-blue-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white">Evaluación de la Unidad III</h2>
+                <p class="text-slate-400 mt-2">Valida tus conocimientos basados en el documento de estudio (Unidad3.pptx).</p>
+            </div>
+            
+            <form id="quizForm" class="max-w-3xl mx-auto space-y-8">
+                
+                <!-- Pregunta 1 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-blue-500 mr-2">1.</span>¿Qué técnica de codificación de instrucciones utiliza el espacio libre de los operandos no usados (en instrucciones más cortas) para expandir el código de operación, manteniendo así el tamaño del formato fijo?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p1" value="incorrecto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Técnica de Huffman.</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p1" value="correcto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Código de Bloque Extendido.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-blue-500 mr-2">2.</span>¿Qué modo de direccionamiento utiliza un registro como puntero a una variable en memoria, y se representa típicamente con la sintaxis <code>(R3)</code>?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p2" value="correcto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Indirecto de registro.</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p2" value="incorrecto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Modo Absoluto.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-blue-500 mr-2">3.</span>¿Qué principio del conjunto de instrucciones dicta que "el sistema debe evitar redundancias, impidiendo que existan dos instrucciones distintas que hagan exactamente la misma operación"?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p3" value="incorrecto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Ortogonalidad.</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p3" value="correcto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Eficiencia.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Contenedor de Resultados -->
+                <div id="resultado" class="hidden p-6 rounded-2xl text-center font-bold text-lg border"></div>
+
+                <!-- Botones de Acción -->
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-6 border-t border-slate-700">
+                    <button type="button" onclick="evaluarQuizLocal()" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all">
+                        Validar Módulo <i class="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
+                    <!-- Apunta automáticamente a la Uni4 tras validarse -->
+                    <a href="Uni4.html" id="btnSiguiente" class="pointer-events-none opacity-50 px-8 py-4 bg-slate-700 text-slate-300 font-bold rounded-xl transition-all flex items-center gap-2">
+                        Siguiente: Unidad IV <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 text-center mt-auto">
+        <p class="text-slate-400 text-sm">© 2026 Arquitectura de Computadoras II | Ingeniería en Computación - UNI</p>
+    </footer>
+
+    <!-- Lógica Autónoma del Quiz -->
+    <script>
+        function evaluarQuizLocal() {
+            const form = document.getElementById('quizForm');
+            const res = document.getElementById('resultado');
+            const btnSiguiente = document.getElementById('btnSiguiente');
+            let total = 3; 
+            let aciertos = 0; 
+            let respondidas = 0;
+            
+            for(let i=1; i<=total; i++) {
+                let opciones = form.elements['p'+i];
+                let marcada = false;
+                for(let j=0; j<opciones.length; j++) {
+                    if(opciones[j].checked) {
+                        marcada = true;
+                        if(opciones[j].value === 'correcto') aciertos++;
+                    }
+                }
+                if(marcada) respondidas++;
+            }
+
+            res.classList.remove('hidden');
+
+            if(respondidas < total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-amber-900/30 text-amber-400 border-amber-500/50 mt-8';
+                res.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i> Por favor, responde todas las preguntas.';
+                return;
+            }
+            
+            // Activar botón siguiente
+            btnSiguiente.classList.remove('pointer-events-none', 'opacity-50', 'bg-slate-700', 'text-slate-300');
+            btnSiguiente.classList.add('bg-emerald-500', 'text-white', 'hover:bg-emerald-400', 'shadow-lg', 'shadow-emerald-500/30');
+            
+            if(aciertos === total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-emerald-900/30 text-emerald-400 border-emerald-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> ¡Excelente! ${aciertos}/${total} correctas. Módulo sobre Conjunto de Instrucciones dominado.`;
+            } else {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-rose-900/30 text-rose-400 border-rose-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Obtuviste ${aciertos}/${total}. Revisa las tablas de Codificación y Modos de Direccionamiento.`;
+            }
+        }
+    </script>
+</body>
+</html>

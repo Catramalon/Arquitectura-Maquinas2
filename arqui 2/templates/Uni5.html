@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad V - Arquitectura de Computadoras II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0b1120',
+                        card: '#1e293b',
+                        primary: '#3b82f6',
+                        accent: '#06b6d4'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animaciones suaves y personalizadas */
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #0b1120; color: #f8fafc; }
+        .glass-nav { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.4); border-color: rgba(6, 182, 212, 0.5); }
+        .gradient-text { background: linear-gradient(to right, #10b981, #06b6d4); -webkit-background-clip: text; color: transparent; }
+        
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="glass-nav sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center py-4 gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-microchip text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white">ARQUITECTURA II</h1>
+                        <p class="text-xs text-slate-400">Universidad Nacional de Ingeniería</p>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul class="flex flex-wrap justify-center gap-2">
+                        <li><a href="Principal.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Inicio</a></li>
+                        <li><a href="Uni2.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad II</a></li>
+                        <li><a href="Uni3.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad III</a></li>
+                        <li><a href="Uni4.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad IV</a></li>
+                        <!-- Botón Activo: Unidad V -->
+                        <li><a href="Uni5.html" class="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-emerald-600 to-cyan-500 text-white shadow-md">Unidad V</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative py-16 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="max-w-5xl mx-auto px-4 relative z-10 text-center">
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-bold tracking-widest uppercase border border-emerald-500/30">Cerebro Directivo</span>
+            <h2 class="mt-6 text-4xl md:text-5xl font-extrabold text-white mb-6">Unidad de <span class="gradient-text">Control</span></h2>
+            <p class="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                Es la encargada de coordinar el ciclo de instrucción. Actúa como un "titiritero" activando líneas y señales de control para gobernar la memoria, la ALU y los registros en el momento preciso.
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-6xl mx-auto px-4 pb-20 space-y-16">
+
+        <!-- SECCIÓN 1: OPERACIONES BÁSICAS Y ESTRATEGIAS -->
+        <div>
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-list-ol text-emerald-500"></i> Operaciones Básicas y Estrategias
+            </h3>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Operaciones de Control -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl"></div>
+                    <h4 class="text-lg font-bold text-emerald-400 mb-4 border-b border-emerald-500/30 pb-2">Las Tareas del Titiritero</h4>
+                    <p class="text-sm text-slate-400 mb-3">La UC ejecuta sus responsabilidades activando señales de hardware para:</p>
+                    <ul class="list-disc ml-5 space-y-1 text-sm text-slate-300">
+                        <li>Transferir contenidos entre registros.</li>
+                        <li>Leer (READ) o escribir (WRITE) en memoria.</li>
+                        <li>Ejecutar una operación en la ALU.</li>
+                        <li>Incrementar o Modificar el Program Counter (PC).</li>
+                        <li>Verificar solicitudes de interrupción externa (INT).</li>
+                        <li>Verificar o establecer Banderas (como la PSW con T, N, Z, V, C).</li>
+                        <li>Decodificar la instrucción almacenada en el IR.</li>
+                    </ul>
+                </div>
+
+                <!-- Estrategia de Ejecución -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl"></div>
+                    <h4 class="text-lg font-bold text-cyan-400 mb-4 border-b border-cyan-500/30 pb-2">El Ciclo de Instrucción</h4>
+                    <p class="text-sm text-slate-400 mb-3">Para facilitar el diseño, el ciclo se divide en fases y "pasos de control" discretos generados por el reloj:</p>
+                    <div class="space-y-3">
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700">
+                            <strong class="text-blue-300 text-xs uppercase tracking-wider block">Fase Fetch (Única y Estándar)</strong>
+                            <p class="text-xs text-slate-400 mt-1">PC al MAR, Activar READ, Incrementar PC, Esperar MFC, Pasar de MDR a IR y decodificar.</p>
+                        </div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700">
+                            <strong class="text-purple-300 text-xs uppercase tracking-wider block">Fase Execute (Diferenciada)</strong>
+                            <p class="text-xs text-slate-400 mt-1">Varía según el grupo de instrucción: OP (aritmética), MOV (transferencias) o BRx (saltos condicionales evaluando banderas).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: IMPLEMENTACIONES DE LA UC -->
+        <div class="bg-gradient-to-r from-emerald-900/40 to-cyan-900/40 border border-emerald-500/30 rounded-3xl p-8 md:p-12 relative overflow-hidden shadow-2xl">
+            <div class="absolute -right-10 -top-10 text-emerald-500/10">
+                <i class="fa-solid fa-sitemap text-9xl"></i>
+            </div>
+            
+            <h3 class="text-2xl md:text-3xl font-bold text-white mb-6 relative z-10 flex items-center gap-3">
+                Implementaciones de la Unidad de Control
+            </h3>
+            <p class="text-slate-300 mb-8 max-w-3xl relative z-10 text-sm leading-relaxed">
+                Teniendo definidos los "Pasos de Control", la UC se puede construir físicamente bajo dos enfoques principales que balancean la velocidad extrema contra la flexibilidad de diseño.
+            </p>
+            
+            <div class="grid lg:grid-cols-2 gap-8 relative z-10">
+                
+                <!-- UC ALAMBRADA -->
+                <div>
+                    <h4 class="text-xl font-bold text-rose-300 mb-3 border-b border-rose-500/30 pb-2"><i class="fa-solid fa-network-wired mr-2"></i>UC Alambrada (Fija)</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Consiste en una red combinacional pura (Hardware). Cada paso de control se convierte en una entrada.
+                    </p>
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+                        <p class="text-sm text-slate-300 mb-2"><strong>Mecanismo:</strong> La implementación se reduce a obtener las expresiones lógicas booleanas para cada señal de salida a partir de la Instrucción (Ii), Pasos de tiempo (Tj) y Banderas. Ejemplo:</p>
+                        <code class="block text-xs text-rose-400 font-mono bg-black/50 p-2 rounded">Z_in = T1 + ADD·T6 + BRN·T5 + ...</code>
+                        <p class="text-sm text-slate-300 mt-3">Suele emplear arreglos de lógica programable (PLA). Es extremadamente rápida pero rígida e imposible de actualizar sin cambiar el chip.</p>
+                    </div>
+                </div>
+                
+                <!-- UC MICROPROGRAMADA -->
+                <div>
+                    <h4 class="text-xl font-bold text-purple-300 mb-3 border-b border-purple-500/30 pb-2"><i class="fa-solid fa-microchip mr-2"></i>UC Microprogramada</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Almacena el patrón de unos y ceros de los pasos de control en una memoria ultrarrápida: la <strong>Memoria de Control</strong>. 
+                    </p>
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 space-y-3">
+                        <p class="text-sm text-slate-300"><strong>Palabra de Control (cw):</strong> Cada fila de la memoria representa las señales de un paso. El conjunto de estas palabras forma el <em>Microprograma</em> de la instrucción.</p>
+                        <p class="text-sm text-slate-300"><strong>El Secuenciador (mPC):</strong> El Micro Program Counter (mPC) indica qué dirección de memoria leer. Las instrucciones de salto ejecutan "Microrramificaciones" (µBr) que modifican este mPC.</p>
+                        <p class="text-sm text-slate-300"><strong>Organización:</strong> 
+                            <br>- <span class="text-cyan-400">Horizontal:</span> 1 bit de memoria por cada señal física.
+                            <br>- <span class="text-emerald-400">Vertical:</span> Señales mutuamente excluyentes codificadas en grupos para ahorrar bits en la memoria.
+                        </p>
+                        <p class="text-xs text-purple-400 mt-2 italic">Ventaja principal: Permite emular otras arquitecturas o crear nuevas instrucciones actualizando la memoria (Firmware).</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: QUIZ INTERACTIVO -->
+        <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl p-8 shadow-2xl">
+            <div class="text-center mb-10">
+                <div class="inline-block p-4 bg-emerald-500/10 rounded-full mb-4">
+                    <i class="fa-solid fa-list-check text-4xl text-emerald-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white">Evaluación de la Unidad V</h2>
+                <p class="text-slate-400 mt-2">Valida tus conocimientos basados en el documento de estudio (Unidad5.pptx).</p>
+            </div>
+            
+            <form id="quizForm" class="max-w-3xl mx-auto space-y-8">
+                
+                <!-- Pregunta 1 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-emerald-500 mr-2">1.</span>En la implementación de una Unidad de Control Alambrada (Fija), el trabajo de diseño se reduce primordialmente a:</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-emerald-500 transition">
+                            <input type="radio" name="p1" value="incorrecto" class="w-5 h-5 accent-emerald-500">
+                            <span class="text-slate-300">Programar el firmware y almacenarlo en la Memoria de Control.</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-emerald-500 transition">
+                            <input type="radio" name="p1" value="correcto" class="w-5 h-5 accent-emerald-500">
+                            <span class="text-slate-300">Obtener las expresiones lógicas booleanas para activar cada señal (Ej: Zin = T1 + ADD).</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-emerald-500 mr-2">2.</span>¿Qué elemento actúa como secuenciador exclusivo para llevar el control de qué dirección leer dentro de la Memoria de Control en una UC Microprogramada?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-emerald-500 transition">
+                            <input type="radio" name="p2" value="correcto" class="w-5 h-5 accent-emerald-500">
+                            <span class="text-slate-300">El Micro Program Counter (mPC o µPC).</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-emerald-500 transition">
+                            <input type="radio" name="p2" value="incorrecto" class="w-5 h-5 accent-emerald-500">
+                            <span class="text-slate-300">El Instruction Register (IR).</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-emerald-500 mr-2">3.</span>En el diseño de la UC Microprogramada, ¿cómo se denomina a la organización donde cada señal pertenece a un grupo codificado (usando decodificadores) con el objetivo de reducir bits en la memoria de control?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-emerald-500 transition">
+                            <input type="radio" name="p3" value="correcto" class="w-5 h-5 accent-emerald-500">
+                            <span class="text-slate-300">Organización Vertical.</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-emerald-500 transition">
+                            <input type="radio" name="p3" value="incorrecto" class="w-5 h-5 accent-emerald-500">
+                            <span class="text-slate-300">Organización Horizontal.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Contenedor de Resultados -->
+                <div id="resultado" class="hidden p-6 rounded-2xl text-center font-bold text-lg border"></div>
+
+                <!-- Botones de Acción -->
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-6 border-t border-slate-700">
+                    <button type="button" onclick="evaluarQuizLocal()" class="px-8 py-4 bg-gradient-to-r from-emerald-600 to-cyan-500 text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all">
+                        Validar Módulo <i class="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
+                    <!-- Apunta automáticamente a la Uni6 tras validarse -->
+                    <a href="Uni6.html" id="btnSiguiente" class="pointer-events-none opacity-50 px-8 py-4 bg-slate-700 text-slate-300 font-bold rounded-xl transition-all flex items-center gap-2">
+                        Siguiente: Unidad VI <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 text-center mt-auto">
+        <p class="text-slate-400 text-sm">© 2026 Arquitectura de Computadoras II | Ingeniería en Computación - UNI</p>
+    </footer>
+
+    <!-- Lógica Autónoma del Quiz -->
+    <script>
+        function evaluarQuizLocal() {
+            const form = document.getElementById('quizForm');
+            const res = document.getElementById('resultado');
+            const btnSiguiente = document.getElementById('btnSiguiente');
+            let total = 3; 
+            let aciertos = 0; 
+            let respondidas = 0;
+            
+            for(let i=1; i<=total; i++) {
+                let opciones = form.elements['p'+i];
+                let marcada = false;
+                for(let j=0; j<opciones.length; j++) {
+                    if(opciones[j].checked) {
+                        marcada = true;
+                        if(opciones[j].value === 'correcto') aciertos++;
+                    }
+                }
+                if(marcada) respondidas++;
+            }
+
+            res.classList.remove('hidden');
+
+            if(respondidas < total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-amber-900/30 text-amber-400 border-amber-500/50 mt-8';
+                res.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i> Por favor, responde todas las preguntas.';
+                return;
+            }
+            
+            // Activar botón siguiente
+            btnSiguiente.classList.remove('pointer-events-none', 'opacity-50', 'bg-slate-700', 'text-slate-300');
+            btnSiguiente.classList.add('bg-emerald-500', 'text-white', 'hover:bg-emerald-400', 'shadow-lg', 'shadow-emerald-500/30');
+            
+            if(aciertos === total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-emerald-900/30 text-emerald-400 border-emerald-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> ¡Excelente! ${aciertos}/${total} correctas. Cerebro Directivo dominado con éxito.`;
+            } else {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-rose-900/30 text-rose-400 border-rose-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Obtuviste ${aciertos}/${total}. Revisa los conceptos de UC Microprogramada y mPC.`;
+            }
+        }
+    </script>
+</body>
+</html>

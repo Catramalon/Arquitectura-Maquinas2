@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad I - Arquitectura de Computadoras II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0b1120',
+                        card: '#1e293b',
+                        primary: '#3b82f6',
+                        accent: '#06b6d4'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animaciones suaves y personalizadas */
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #0b1120; color: #f8fafc; }
+        .glass-nav { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.4); border-color: rgba(6, 182, 212, 0.5); }
+        .gradient-text { background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; color: transparent; }
+        
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary selection:text-white">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="glass-nav sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center py-4 gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-microchip text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white">ARQUITECTURA II</h1>
+                        <p class="text-xs text-slate-400">Universidad Nacional de Ingeniería</p>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul class="flex flex-wrap justify-center gap-2">
+                        <li><a href="Principal.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Inicio</a></li>
+                        <!-- Botón Activo: Unidad I -->
+                        <li><a href="Uni1.html" class="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md">Unidad I</a></li>
+                        <li><a href="Uni2.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad II</a></li>
+                        <li><a href="Uni3.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad III</a></li>
+                        <li><a href="Uni4.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad IV</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative py-16 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="max-w-5xl mx-auto px-4 relative z-10 text-center">
+            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold tracking-widest uppercase border border-blue-500/30">1.1 Introducción</span>
+            <h2 class="mt-6 text-4xl md:text-5xl font-extrabold text-white mb-6">Arquitectura y <span class="gradient-text">Organización</span></h2>
+            <p class="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                El proceso constructivo de una computadora consta de la Planificación y Diseño (Arquitectura) y culmina en la Implementación física (Organización).
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-6xl mx-auto px-4 pb-20 space-y-16">
+
+        <!-- SECCIÓN 1: DICOTOMÍA (ARQUITECTURA VS ORGANIZACIÓN) -->
+        <div>
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-code-compare text-blue-500"></i> Arquitectura vs Organización
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Tarjeta Arquitectura -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover relative overflow-hidden flex flex-col">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                    <i class="fa-solid fa-layer-group text-4xl text-blue-400 mb-4"></i>
+                    <h4 class="text-xl font-bold text-white mb-3">Arquitectura</h4>
+                    <p class="text-slate-300 flex-grow">Comprende los <strong>atributos visibles al programador</strong>. Es la fase de diseño lógico donde se define cómo funcionará el sistema conceptualmente.</p>
+                </div>
+
+                <!-- Tarjeta Organización -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover relative overflow-hidden flex flex-col">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl"></div>
+                    <i class="fa-solid fa-microchip text-4xl text-cyan-400 mb-4"></i>
+                    <h4 class="text-xl font-bold text-white mb-3">Organización</h4>
+                    <p class="text-slate-300 flex-grow">Trata sobre la <strong>implementación</strong> física. Define los componentes de hardware reales y su interconexión para cumplir las especificaciones arquitectónicas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: ENFOQUES DE ESTUDIO -->
+        <div>
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-cubes text-cyan-400"></i> 1.4 Organización de la Computadora (Vistas)
+            </h3>
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl p-8">
+                <p class="text-slate-300 mb-6 border-l-4 border-cyan-500 pl-4">El análisis de una computadora se puede realizar mediante dos enfoques complementarios:</p>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-6 hover:border-blue-500/50 transition duration-300">
+                        <h4 class="text-lg font-bold text-blue-400 mb-4"><i class="fa-solid fa-gear mr-2"></i>Enfoque Funcional</h4>
+                        <p class="text-sm text-slate-400 mb-3">Orientado a las funciones requeridas para lograr el objetivo. Sus 4 operaciones básicas son:</p>
+                        <ul class="text-sm text-slate-300 space-y-2 ml-6 list-disc marker:text-blue-500">
+                            <li>Procesamiento de datos.</li>
+                            <li>Almacenamiento de datos.</li>
+                            <li>Traslado de datos.</li>
+                            <li>Operaciones de control.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition duration-300">
+                        <h4 class="text-lg font-bold text-cyan-400 mb-4"><i class="fa-solid fa-network-wired mr-2"></i>Enfoque Estructural</h4>
+                        <p class="text-sm text-slate-400 mb-3">Orientado a definir las partes físicas y cómo se conectan. Sus componentes principales son:</p>
+                        <ul class="text-sm text-slate-300 space-y-2 ml-6 list-disc marker:text-cyan-500">
+                            <li>Procesador o CPU.</li>
+                            <li>Memoria Principal.</li>
+                            <li>Entrada - Salida (E/S).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: MÁQUINA SECUENCIAL DE PROGRAMA ALMACENADO -->
+        <div class="bg-gradient-to-r from-blue-900/40 to-cyan-900/40 border border-blue-500/30 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 text-blue-500/10">
+                <i class="fa-solid fa-server text-9xl"></i>
+            </div>
+            
+            <h3 class="text-2xl md:text-3xl font-bold text-white mb-6 relative z-10 flex items-center gap-3">
+                1.3 Máquina Secuencial de Programa Almacenado
+            </h3>
+            
+            <div class="grid md:grid-cols-2 gap-8 relative z-10">
+                <div>
+                    <h4 class="text-xl font-bold text-blue-300 mb-2">Programa Almacenado</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        Define instrucciones simples para programar cualquier tarea. La clave revolucionaria es la <strong>posibilidad de cargar estos programas en la misma memoria que se cargan los datos</strong>.
+                    </p>
+                    
+                    <h4 class="text-xl font-bold text-cyan-300 mb-2">Máquina Secuencial</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Para realizar la tarea, basta lograr que la máquina realice el programa ejecutando <strong>instrucción tras instrucción</strong> desde la memoria, gracias a un secuenciador (control).
+                    </p>
+                </div>
+                
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-700">
+                    <h4 class="text-lg font-bold text-white mb-4 border-b border-slate-700 pb-2">Las 5 Unidades Funcionales</h4>
+                    <p class="text-xs text-slate-400 mb-4 italic">(Actualización del concepto original de Charles Babbage)</p>
+                    <ol class="list-decimal ml-5 text-sm text-slate-300 space-y-2 marker:text-blue-500 marker:font-bold">
+                        <li><strong>Órgano de cálculo:</strong> Ejecuta las instrucciones.</li>
+                        <li><strong>Memoria:</strong> Almacena datos e instrucciones.</li>
+                        <li><strong>Control:</strong> El secuenciador maestro.</li>
+                        <li><strong>Unidad de Entrada:</strong> Obtiene datos del mundo exterior.</li>
+                        <li><strong>Unidad de Salida:</strong> Entrega los resultados.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: QUIZ INTERACTIVO -->
+        <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl p-8 shadow-2xl">
+            <div class="text-center mb-10">
+                <div class="inline-block p-4 bg-blue-500/10 rounded-full mb-4">
+                    <i class="fa-solid fa-list-check text-4xl text-blue-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white">Evaluación de la Unidad I</h2>
+                <p class="text-slate-400 mt-2">Valida tus conocimientos basados en el documento de estudio (Unidad1.pptx).</p>
+            </div>
+            
+            <form id="quizForm" class="max-w-3xl mx-auto space-y-8">
+                
+                <!-- Pregunta 1 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-blue-500 mr-2">1.</span>¿Qué término se refiere a los atributos de un sistema que son visibles directamente al programador?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p1" value="incorrecto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">La Organización de la Computadora.</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p1" value="correcto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">La Arquitectura de la Computadora.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-blue-500 mr-2">2.</span>Según el concepto de "Programa Almacenado", ¿dónde deben cargarse los programas?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p2" value="correcto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">En la misma memoria en la que se cargan los datos.</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p2" value="incorrecto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">En una memoria secundaria de hardware separada exclusivamente para código.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-blue-500 mr-2">3.</span>Según el enfoque estructural, ¿cuáles son los componentes fundamentales de la computadora?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p3" value="incorrecto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">Procesamiento, Almacenamiento, Traslado y Control.</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-blue-500 transition">
+                            <input type="radio" name="p3" value="correcto" class="w-5 h-5 accent-blue-500">
+                            <span class="text-slate-300">CPU, Memoria y Entrada-Salida.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Contenedor de Resultados -->
+                <div id="resultado" class="hidden p-6 rounded-2xl text-center font-bold text-lg border"></div>
+
+                <!-- Botones de Acción -->
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-6 border-t border-slate-700">
+                    <button type="button" onclick="evaluarQuizLocal()" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all">
+                        Validar Módulo <i class="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
+                    <!-- Apunta automáticamente a la Uni2 tras validarse -->
+                    <a href="Uni2.html" id="btnSiguiente" class="pointer-events-none opacity-50 px-8 py-4 bg-slate-700 text-slate-300 font-bold rounded-xl transition-all flex items-center gap-2">
+                        Siguiente: Unidad II <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 text-center mt-auto">
+        <p class="text-slate-400 text-sm">© 2026 Arquitectura de Computadoras II | Ingeniería en Computación - UNI</p>
+    </footer>
+
+    <!-- Lógica Autónoma del Quiz -->
+    <script>
+        function evaluarQuizLocal() {
+            const form = document.getElementById('quizForm');
+            const res = document.getElementById('resultado');
+            const btnSiguiente = document.getElementById('btnSiguiente');
+            let total = 3; // Ajustado a 3 preguntas para abarcar la teoría de la presentación
+            let aciertos = 0; 
+            let respondidas = 0;
+            
+            for(let i=1; i<=total; i++) {
+                let opciones = form.elements['p'+i];
+                let marcada = false;
+                for(let j=0; j<opciones.length; j++) {
+                    if(opciones[j].checked) {
+                        marcada = true;
+                        if(opciones[j].value === 'correcto') aciertos++;
+                    }
+                }
+                if(marcada) respondidas++;
+            }
+
+            res.classList.remove('hidden');
+
+            if(respondidas < total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-amber-900/30 text-amber-400 border-amber-500/50 mt-8';
+                res.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i> Por favor, responde todas las preguntas.';
+                return;
+            }
+            
+            // Activar botón siguiente
+            btnSiguiente.classList.remove('pointer-events-none', 'opacity-50', 'bg-slate-700', 'text-slate-300');
+            btnSiguiente.classList.add('bg-emerald-500', 'text-white', 'hover:bg-emerald-400', 'shadow-lg', 'shadow-emerald-500/30');
+            
+            if(aciertos === total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-emerald-900/30 text-emerald-400 border-emerald-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> ¡Excelente! ${aciertos}/${total} correctas. Módulo dominado con éxito.`;
+            } else {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-rose-900/30 text-rose-400 border-rose-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Obtuviste ${aciertos}/${total}. Revisa los conceptos de Arquitectura y Máquina Secuencial.`;
+            }
+        }
+    </script>
+</body>
+</html>

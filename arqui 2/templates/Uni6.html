@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad VI - Arquitectura de Computadoras II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0b1120',
+                        card: '#1e293b',
+                        primary: '#3b82f6',
+                        accent: '#06b6d4'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animaciones suaves y personalizadas */
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #0b1120; color: #f8fafc; }
+        .glass-nav { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.4); border-color: rgba(6, 182, 212, 0.5); }
+        .gradient-text { background: linear-gradient(to right, #ec4899, #8b5cf6); -webkit-background-clip: text; color: transparent; }
+        
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="antialiased selection:bg-pink-500 selection:text-white">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="glass-nav sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center py-4 gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-gradient-to-br from-pink-500 to-purple-500 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-microchip text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white">ARQUITECTURA II</h1>
+                        <p class="text-xs text-slate-400">Universidad Nacional de Ingeniería</p>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul class="flex flex-wrap justify-center gap-2">
+                        <li><a href="Principal.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Inicio</a></li>
+                        <li><a href="Uni3.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad III</a></li>
+                        <li><a href="Uni4.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad IV</a></li>
+                        <li><a href="Uni5.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:bg-slate-800 transition">Unidad V</a></li>
+                        <!-- Botón Activo: Unidad VI -->
+                        <li><a href="Uni6.html" class="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-pink-600 to-purple-500 text-white shadow-md">Unidad VI</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative py-16 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="max-w-5xl mx-auto px-4 relative z-10 text-center">
+            <span class="px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-bold tracking-widest uppercase border border-pink-500/30">Retención de Datos</span>
+            <h2 class="mt-6 text-4xl md:text-5xl font-extrabold text-white mb-6">Sistema de <span class="gradient-text">Memoria</span></h2>
+            <p class="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                El sistema de memoria busca balancear velocidad, capacidad y costo organizándose en niveles (Registros > Caché > RAM > Disco Secundario)[cite: 8].
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-6xl mx-auto px-4 pb-20 space-y-16">
+
+        <!-- SECCIÓN 1: PRINCIPIO DE LOCALIDAD -->
+        <div>
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-map-location-dot text-pink-500"></i> Principio de Localidad
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                
+                <!-- Localidad Espacial -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover relative overflow-hidden flex flex-col">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl"></div>
+                    <i class="fa-solid fa-layer-group text-4xl text-pink-400 mb-4"></i>
+                    <h4 class="text-xl font-bold text-white mb-3">Localidad Espacial</h4>
+                    <p class="text-slate-300 flex-grow">Las direcciones contiguas a una recién accedida tienen alta probabilidad de ser referenciadas[cite: 8].</p>
+                </div>
+
+                <!-- Localidad Temporal -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover relative overflow-hidden flex flex-col">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl"></div>
+                    <i class="fa-solid fa-clock-rotate-left text-4xl text-purple-400 mb-4"></i>
+                    <h4 class="text-xl font-bold text-white mb-3">Localidad Temporal</h4>
+                    <p class="text-slate-300 flex-grow">Un dato accedido hoy tiene alta probabilidad de ser referenciado de nuevo pronto[cite: 8].</p>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- INFORMACIÓN COMPLETA DE LAS DIAPOSITIVAS DE LA UNIDAD VI -->
+        <div class="space-y-16">
+
+            <!-- FUNCIÓN Y JERARQUÍA -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-database text-pink-500"></i> Función de Almacenamiento y Jerarquía de Memoria
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-4">Función de almacenamiento</h4>
+                        <ul class="space-y-3 text-slate-300">
+                            <li><strong class="text-pink-400">Registros del CPU:</strong> almacenamiento temporal durante la ejecución de operaciones.</li>
+                            <li><strong class="text-pink-400">Memoria principal:</strong> contiene programas y datos.</li>
+                            <li><strong class="text-pink-400">Memoria secundaria:</strong> almacenamiento masivo y permanente.</li>
+                            <li><strong class="text-pink-400">Operaciones:</strong> lectura y escritura.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-4">Prestaciones y métricas</h4>
+                        <ul class="space-y-3 text-slate-300">
+                            <li><strong class="text-purple-400">Latencia:</strong> tiempo de acceso, tiempo de ciclo y Vt.</li>
+                            <li><strong class="text-purple-400">Capacidad:</strong> expresada en bytes: KB, MB, GB, TB, etc.</li>
+                            <li>La jerarquía organiza los niveles desde los registros y la caché hasta la memoria principal y secundaria.</li>
+                            <li>Al aumentar el nivel hacia memorias más grandes, se busca mayor capacidad y menor coste; hacia el CPU se busca menor tiempo de acceso.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARACTERIZACIÓN -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-layer-group text-purple-500"></i> Caracterización de la Memoria
+                </h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-3">Por nivel de función</h4>
+                        <ul class="text-slate-300 space-y-2">
+                            <li>Memoria interna al CPU.</li>
+                            <li>Memoria intermedia o caché.</li>
+                            <li>Memoria primaria o principal.</li>
+                            <li>Memoria secundaria.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-3">Por tecnología</h4>
+                        <ul class="text-slate-300 space-y-2">
+                            <li>Semiconductora: estática (mayormente bipolar) y dinámica (MOS).</li>
+                            <li>Magnética.</li>
+                            <li>Óptica y magneto-óptica (MO).</li>
+                            <li>Tecnologías emergentes: proteínas, cristales, iones, hologramas, etc.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-3">Por retención del dato</h4>
+                        <ul class="text-slate-300 space-y-2">
+                            <li>Memoria volátil.</li>
+                            <li>Memoria volátil con respaldo de energía.</li>
+                            <li>Memoria permanente.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-3">Por operación soportada</h4>
+                        <ul class="text-slate-300 space-y-2">
+                            <li><strong>RW:</strong> lectura y escritura.</li>
+                            <li><strong>ROM:</strong> contenido grabado en fábrica.</li>
+                            <li><strong>PROM:</strong> programable mediante un dispositivo.</li>
+                            <li><strong>EPROM:</strong> borrado mediante UV y reprogramación.</li>
+                            <li><strong>EEPROM:</strong> borrado eléctrico y reprogramación.</li>
+                            <li><strong>FLASH:</strong> alternativa a EEPROM que permite RW.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-3">Por método de acceso</h4>
+                        <ul class="text-slate-300 space-y-2">
+                            <li><strong>Aleatorio (RAM):</strong> mismo tiempo para cada celda; ejemplo: memorias semiconductoras.</li>
+                            <li><strong>Secuencial:</strong> tiempo diferente según la posición; ejemplo: cintas.</li>
+                            <li><strong>Directo o semisecuencial:</strong> posicionamiento directo + búsqueda secuencial; ejemplo: unidades de disco.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-3">Direccionamiento y otros criterios</h4>
+                        <ul class="text-slate-300 space-y-2">
+                            <li><strong>Por posición:</strong> la dirección corresponde a la posición de la localidad.</li>
+                            <li><strong>Por contenido:</strong> la localidad se ubica mediante parte de su contenido.</li>
+                            <li>Memorias asociativas: <strong>Tag + Data</strong>, con búsqueda en todas las celdas a la vez.</li>
+                            <li>Otros criterios: coste por bit, tamaño y organización.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TRANSFERENCIA Y ORGANIZACIÓN -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-arrows-left-right text-pink-500"></i> Unidad de Transferencia y Organización de la Memoria Principal
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Unidades de transferencia</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li><strong>Interna:</strong> normalmente controlada por la anchura del bus de datos.</li>
+                            <li><strong>Externa:</strong> normalmente consiste en un bloque mucho mayor que una palabra.</li>
+                            <li><strong>Unidad direccionable:</strong> ubicación mínima que puede ser direccionable.</li>
+                            <li>Entre las unidades internas se consideran las palabras y el byte.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Organización</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li>La unidad de almacenamiento es el <strong>bit</strong>.</li>
+                            <li>Se emplean chips de <strong>n × m</strong> frente a <strong>n × 1</strong>; los chips n × 1 requieren menos pines.</li>
+                            <li>La organización interna utiliza matrices de <strong>r filas × c columnas</strong>, líneas de activación/selección y líneas de operación.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-6 bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                    <h4 class="text-xl font-bold text-white mb-3">Ejemplo de organización interna</h4>
+                    <p class="text-slate-300 leading-relaxed">
+                        Un chip de 16 Mbits puede estructurarse como 1 Mpalabras de 16 bits, o mediante un sistema de “un bit por chip” usando 16 lotes de un chip de 1 Mbit. También puede organizarse en cuatro matrices cuadradas de 2048 × 2048 elementos. Esta organización reduce el número de terminales de dirección mediante direccionamiento multiplexado de filas y columnas: 11 terminales permiten representar 2<sup>11</sup> = 2048 posiciones. Una terminal adicional duplica el rango de valores y, por la organización de filas y columnas, la capacidad se multiplica por cuatro.
+                    </p>
+                </div>
+            </section>
+
+            <!-- DRAM Y MÓDULOS -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-memory text-purple-500"></i> DRAM, Chips y Organización en Módulos
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Chips de memoria</h4>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            La presentación muestra el encapsulado de un chip de memoria, incluyendo un DIP de 32 terminales y ejemplos de una EPROM de 8 Mbits y una DRAM de 16 Mbits. Una DRAM típica de 16 Mb se organiza como 4M × 4.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed">
+                            En una DRAM se incluyen buffers de direcciones de filas y columnas, contador de refresco, decodificadores de filas y columnas, matriz de memoria, amplificadores de lectura y puerto de E/S, y buffers de entrada y salida de datos.
+                        </p>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Organización en módulos</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li><strong>MAR:</strong> registro de dirección de memoria.</li>
+                            <li><strong>MBR:</strong> registro buffer de memoria.</li>
+                            <li>Los módulos pueden usar chips de 512 palabras por 512 bits y decodificadores 1 entre 512.</li>
+                            <li>En la organización por grupos, todos los chips pueden formar grupos habilitados desde el circuito de selección; se selecciona uno de cuatro grupos.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-6 bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                    <h4 class="text-xl font-bold text-white mb-3">Refresco de memoria</h4>
+                    <ul class="text-slate-300 space-y-2">
+                        <li>La circuitería de refresco está incluida en el chip.</li>
+                        <li>Durante el refresco se inhabilita el chip.</li>
+                        <li>El contador recorre todas las filas.</li>
+                        <li>Las filas se leen y escriben nuevamente.</li>
+                        <li>El proceso consume tiempo y reduce las prestaciones aparentes.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- CACHE -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-bolt text-pink-500"></i> Memoria Intermedia o Caché
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Características</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li>Cantidad pequeña de memoria rápida.</li>
+                            <li>Se encuentra entre la memoria principal y la CPU.</li>
+                            <li>Puede localizarse en el chip o en el módulo de la CPU.</li>
+                            <li>La transferencia puede realizarse por bloques y por palabras.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Operación de la caché</h4>
+                        <ol class="text-slate-300 space-y-3 list-decimal list-inside">
+                            <li>La CPU solicita lectura o escritura a una localidad.</li>
+                            <li>Se comprueba si la palabra correspondiente está en caché.</li>
+                            <li>Si está, la operación se realiza rápidamente en la caché.</li>
+                            <li>Si no está, se lleva el bloque requerido desde la memoria principal a la caché.</li>
+                            <li>Después, la CPU accede a la información en la caché.</li>
+                            <li>Las etiquetas identifican qué bloque de memoria principal ocupa cada línea de caché.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="mt-6 bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                    <h4 class="text-xl font-bold text-white mb-3">Principio de localidad de referencia</h4>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        Es la base de la apuesta de éxito de las cachés. La presentación utiliza la conjetura 90–10 de los programas y la secuencialidad de la arquitectura ASPA.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                            <h5 class="font-bold text-pink-400 mb-2">Localidad espacial</h5>
+                            <p class="text-slate-300">Las ubicaciones contiguas tienen alta probabilidad de ser referenciadas, relacionada con la forma de almacenamiento de los datos.</p>
+                        </div>
+                        <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                            <h5 class="font-bold text-purple-400 mb-2">Localidad temporal</h5>
+                            <p class="text-slate-300">Una referencia actual tiene alta probabilidad de ser referenciada nuevamente, con comportamiento cíclico o modular.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DISEÑO Y CORRESPONDENCIAS -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-sitemap text-purple-500"></i> Diseño y Correspondencia de la Caché
+                </h3>
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover mb-6">
+                    <h4 class="text-xl font-bold text-white mb-3">Factores de diseño</h4>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 text-slate-300">
+                        <div class="bg-slate-900 rounded-xl p-4">Tamaño</div>
+                        <div class="bg-slate-900 rounded-xl p-4">Función de correspondencia</div>
+                        <div class="bg-slate-900 rounded-xl p-4">Algoritmo de sustitución</div>
+                        <div class="bg-slate-900 rounded-xl p-4">Política de escritura</div>
+                        <div class="bg-slate-900 rounded-xl p-4">Tamaño del bloque</div>
+                        <div class="bg-slate-900 rounded-xl p-4">Número de cachés</div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-3">A) Correspondencia directa</h4>
+                        <p class="text-slate-300 mb-3">Cada bloque de memoria principal se corresponde con una sola línea o bloque de caché.</p>
+                        <ul class="text-slate-300 space-y-2">
+                            <li><strong>w:</strong> bits menos significativos que identifican una palabra dentro del bloque.</li>
+                            <li><strong>b:</strong> bits que especifican la línea de caché correspondiente.</li>
+                            <li><strong>t:</strong> etiqueta que identifica cuál bloque de memoria principal está alojado.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-3">B) Correspondencia asociativa</h4>
+                        <p class="text-slate-300 mb-3">Un bloque de memoria principal puede cargarse en cualquier línea de la caché.</p>
+                        <ul class="text-slate-300 space-y-2">
+                            <li>La dirección se interpreta como etiqueta y palabra.</li>
+                            <li>La etiqueta identifica unívocamente un bloque.</li>
+                            <li>Se examinan todas las etiquetas para buscar coincidencia.</li>
+                            <li>La memoria asociativa es costosa y limitada en tamaño.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 card-hover">
+                        <h4 class="text-lg font-bold text-white mb-3">C) Asociativa por conjuntos</h4>
+                        <p class="text-slate-300 mb-3">La caché se organiza en un número de conjuntos asociativos, cada uno con el mismo número de líneas o bloques.</p>
+                        <ul class="text-slate-300 space-y-2">
+                            <li>Un bloque determinado de memoria principal corresponde a un solo conjunto.</li>
+                            <li>Dentro del conjunto puede alojarse en cualquier línea.</li>
+                            <li>Es una combinación de la restricción por conjunto y la flexibilidad asociativa.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-6 grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Ejemplo: caché de 64 KB</h4>
+                        <ul class="text-slate-300 space-y-2">
+                            <li>Datos transferidos en bloques de 4 bytes.</li>
+                            <li>16K = 2<sup>14</sup> líneas o bloques de 4 bytes.</li>
+                            <li>Memoria principal de 16 MB.</li>
+                            <li>Direcciones de 24 bits, porque 2<sup>24</sup> = 16 MB.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Correspondencia directa: ejemplo de dirección</h4>
+                        <ul class="text-slate-300 space-y-2">
+                            <li>Dirección de 24 bits.</li>
+                            <li>Palabra: 2 bits para bloques de 4 bytes.</li>
+                            <li>Bloque: 22 bits.</li>
+                            <li>Etiqueta: 8 bits (= 22 − 14).</li>
+                            <li>Línea o ranura: 14 bits.</li>
+                            <li>Para comprobar la caché se busca la línea y se comprueba la etiqueta.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                    <h4 class="text-xl font-bold text-white mb-3">Correspondencia directa: ventajas y desventajas</h4>
+                    <ul class="text-slate-300 space-y-2">
+                        <li>Es simple y poco costosa.</li>
+                        <li>Existe una posición concreta para cada bloque.</li>
+                        <li>Si un programa accede repetidamente a dos bloques que corresponden a la misma línea, las pérdidas de caché pueden ser muy grandes.</li>
+                    </ul>
+                </div>
+
+                <div class="mt-6 grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Ejemplo asociativo</h4>
+                        <p class="text-slate-300 leading-relaxed">
+                            En el ejemplo de la presentación, la etiqueta tiene 22 bits y la palabra 2 bits. La etiqueta se almacena junto con cada bloque de datos de 32 bits y se compara con la entrada de etiqueta de la caché. La dirección de 2 bits menos significativos identifica qué palabra de 16 bits se necesita dentro del bloque de datos de 32 bits.
+                        </p>
+                        <p class="text-slate-300 mt-3">Ejemplo: dirección FFFFFC, etiqueta FFFFFC, datos 24682468, línea de caché 3FFF.</p>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-3">Asociativa por conjuntos</h4>
+                        <p class="text-slate-300 leading-relaxed">
+                            En el ejemplo se usan 13 bits para el número de conjunto y el número de bloque de memoria principal se hace corresponder mediante módulo 2<sup>13</sup>. Los bloques 000000, 00A000, 00B000, 00C000, etc. se hacen corresponder al mismo conjunto.
+                        </p>
+                        <p class="text-slate-300 mt-3">En otro ejemplo: etiqueta de 9 bits, conjunto de 13 bits y palabra de 2 bits.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUSTITUCIÓN Y ESCRITURA -->
+            <section>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fa-solid fa-repeat text-pink-500"></i> Sustitución y Políticas de Escritura
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-4">Algoritmos de sustitución</h4>
+                        <ul class="text-slate-300 space-y-3">
+                            <li><strong>Correspondencia directa:</strong> no hay elección; solo existe una línea posible para cada bloque.</li>
+                            <li><strong>LRU:</strong> “Utilizado menos recientemente”; se identifica el bloque que lleva más tiempo sin usarse.</li>
+                            <li><strong>FIFO:</strong> “Primero en entrar-primero en salir”; se sustituye el bloque que lleva más tiempo en la caché.</li>
+                            <li><strong>LFU:</strong> “Utilizado menos frecuentemente”; se sustituye el bloque con menos referencias.</li>
+                            <li><strong>Aleatoria:</strong> se selecciona una línea al azar.</li>
+                            <li>En correspondencias asociativas y asociativas por conjuntos, estos algoritmos deben implementarse en hardware para conseguir velocidad.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 card-hover">
+                        <h4 class="text-xl font-bold text-white mb-4">Política de escritura</h4>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            Si se escribe sobre un bloque de caché, la memoria principal puede quedar desactualizada. Esto genera riesgos de incoherencia cuando existen múltiples CPU con cachés individuales o cuando un módulo de E/S tiene acceso directo a la memoria principal.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                                <h5 class="font-bold text-pink-400 mb-2">Write Through — Escritura inmediata</h5>
+                                <p class="text-slate-300">Todas las operaciones de escritura se realizan tanto en memoria principal como en caché. Permite que las CPU monitoricen el tráfico de memoria para mantener actualizada la caché local, pero genera mucho tráfico y retrasa la escritura.</p>
+                            </div>
+                            <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                                <h5 class="font-bold text-purple-400 mb-2">Write Back — Post-escritura</h5>
+                                <p class="text-slate-300">Las actualizaciones se hacen solo en la caché. Se activa un <strong>dirty bit</strong> y, cuando el bloque va a ser sustituido, si el bit está activo se escribe en memoria principal antes de reemplazarlo. En sistemas con múltiples CPU se requieren protocolos de coherencia; los módulos de E/S solo pueden acceder a la memoria principal a través de la caché.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- SECCIÓN 2: QUIZ INTERACTIVO -->
+        <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl p-8 shadow-2xl">
+            <div class="text-center mb-10">
+                <div class="inline-block p-4 bg-pink-500/10 rounded-full mb-4">
+                    <i class="fa-solid fa-list-check text-4xl text-pink-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white">Evaluación de la Unidad VI</h2>
+                <p class="text-slate-400 mt-2">Responde correctamente para habilitar el avance a la siguiente unidad.</p>
+            </div>
+            
+            <form id="quizForm" class="max-w-3xl mx-auto space-y-8">
+                
+                <!-- Pregunta 1 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                    <p class="text-lg font-bold text-white mb-4"><span class="text-pink-500 mr-2">1.</span>¿Qué principio establece que las ubicaciones de memoria contiguas a un dato tienen alta probabilidad de ser referenciadas?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-pink-500 transition">
+                            <input type="radio" name="p1" value="correcto" class="w-5 h-5 accent-pink-500">
+                            <span class="text-slate-300">A) Localidad Espacial</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer hover:border-pink-500 transition">
+                            <input type="radio" name="p1" value="incorrecto" class="w-5 h-5 accent-pink-500">
+                            <span class="text-slate-300">B) Localidad Temporal</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Contenedor de Resultados -->
+                <div id="resultado" class="hidden p-6 rounded-2xl text-center font-bold text-lg border"></div>
+
+                <!-- Botones de Acción -->
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-6 border-t border-slate-700">
+                    <button type="button" onclick="evaluarQuizLocal()" class="px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-500 text-white font-bold rounded-xl shadow-lg hover:shadow-purple-500/25 hover:scale-105 transition-all">
+                        Validar Módulo <i class="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
+                    <!-- Apunta automáticamente a la Uni7 tras validarse -->
+                    <a href="Uni7.html" id="btnSiguiente" class="pointer-events-none opacity-50 px-8 py-4 bg-slate-700 text-slate-300 font-bold rounded-xl transition-all flex items-center gap-2">
+                        Siguiente: Unidad VII <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 text-center">
+        <p class="text-slate-400 text-sm">© 2026 Arquitectura de Computadoras II | Ingeniería en Computación - UNI</p>
+    </footer>
+
+    <!-- Lógica Autónoma del Quiz -->
+    <script>
+        function evaluarQuizLocal() {
+            const form = document.getElementById('quizForm');
+            const res = document.getElementById('resultado');
+            const btnSiguiente = document.getElementById('btnSiguiente');
+            let total = 1; // Ajustado a 1 pregunta
+            let aciertos = 0; 
+            let respondidas = 0;
+            
+            for(let i=1; i<=total; i++) {
+                let opciones = form.elements['p'+i];
+                let marcada = false;
+                for(let j=0; j<opciones.length; j++) {
+                    if(opciones[j].checked) {
+                        marcada = true;
+                        if(opciones[j].value === 'correcto') aciertos++;
+                    }
+                }
+                if(marcada) respondidas++;
+            }
+
+            res.classList.remove('hidden');
+
+            if(respondidas < total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-amber-900/30 text-amber-400 border-amber-500/50 mt-8';
+                res.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i> Por favor, responde la pregunta.';
+                return;
+            }
+            
+            // Activar botón siguiente
+            btnSiguiente.classList.remove('pointer-events-none', 'opacity-50', 'bg-slate-700', 'text-slate-300');
+            btnSiguiente.classList.add('bg-emerald-500', 'text-white', 'hover:bg-emerald-400', 'shadow-lg', 'shadow-emerald-500/30');
+            
+            if(aciertos === total) {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-emerald-900/30 text-emerald-400 border-emerald-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> ¡Correcto! A esto se le conoce como el principio de Localidad Espacial. Avance autorizado.`;
+            } else {
+                res.className = 'p-6 rounded-2xl text-center font-bold text-lg border bg-rose-900/30 text-rose-400 border-rose-500/50 mt-8';
+                res.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Incorrecto. La Localidad Temporal hace referencia al tiempo, no a la dirección contigua. Sugerimos repasar.`;
+            }
+        }
+    </script>
+</body>
+</html>
